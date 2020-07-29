@@ -34,16 +34,16 @@
                 </a>
                 <ul class="collapse submenu list-unstyled" id="hrm" data-parent="#accordionExample">
                     <li>
-                        <a href="pages_add_staff.php"> Add Staff </a>
+                        <a href="pages_admin_add_staff.php"> Add Staff </a>
                     </li>
                     <li>
-                        <a href="apps_mailbox.html"> Manage Staff  </a>
+                        <a href="pages_admin_manage_staff.php"> Manage Staff  </a>
                     </li>
                     <li>
-                        <a href="apps_todoList.html"> Login Permissions </a>
+                        <a href="pages_admin_login_permissions.php"> Login Permissions </a>
                     </li>                            
                     <li>
-                        <a href="apps_notes.html"> Manage Permissions </a>
+                        <a href="pages_admin_manage_permissions.php"> Manage Permissions </a>
                     </li>
                 </ul>
             </li>

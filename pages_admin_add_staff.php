@@ -47,7 +47,6 @@
         <!--  BEGIN SIDEBAR  -->
         <?php require_once('partials/_sidenav.php');?>
         <!--  END SIDEBAR  -->
-        
         <!--  BEGIN CONTENT PART  -->
         <div id="content" class="main-content">
             <div class="layout-px-spacing">
