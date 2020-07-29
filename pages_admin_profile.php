@@ -3,6 +3,99 @@
     include('config/config.php');
     include('config/checklogin.php');
     check_login();
+    //Load profile update logic
+    //update profile
+    if(isset($_POST['updateProfile']))
+    {
+        if ( empty($_POST["login_user_name"]) || empty($_POST["login_user_email"])) 
+        {
+            $err="Empty Fields Not Allowed";
+        }
+        else
+        {
+            
+            $login_user_name = $_POST['login_user_name'];
+            $login_user_email = $_POST['login_user_email'];
+            $login_id = $_SESSION['login_id'];
+
+            //Insert Captured information to a database table
+            $postQuery="UPDATE iBookStore_Login SET login_user_name =?, login_user_email =? WHERE login_id =? ";
+            $postStmt = $mysqli->prepare($postQuery);
+            //bind paramaters
+            $rc=$postStmt->bind_param('ssi', $login_user_name, $login_user_email, $login_id);
+            $postStmt->execute();
+            //declare a varible which will be passed to alert function
+            if($postStmt)
+            {
+                $success = "Profile Updated" && header("refresh:1; url=pages_admin_profile.php");
+            }
+            else 
+            {
+                $err = "Please Try Again Or Try Later";
+            }
+        }
+    }
+    if(isset($_POST['changePassword']))
+    {
+
+        //Change Password
+       $error = 0;
+       if (isset($_POST['old_password']) && !empty($_POST['old_password'])) {
+           $old_password=mysqli_real_escape_string($mysqli,trim(sha1(md5($_POST['old_password']))));
+       }else{
+           $error = 1;
+           $err="Old Password Cannot Be Empty";
+       }
+       if (isset($_POST['new_password']) && !empty($_POST['new_password'])) {
+           $new_password=mysqli_real_escape_string($mysqli,trim(sha1(md5($_POST['new_password']))));
+       }else{
+           $error = 1;
+           $err="New Password Cannot Be Empty";
+       }
+       if (isset($_POST['confirm_password']) && !empty($_POST['confirm_password'])) {
+           $confirm_password=mysqli_real_escape_string($mysqli,trim(sha1(md5($_POST['confirm_password']))));
+       }else{
+           $error = 1;
+           $err="Confirmation Password Cannot Be Empty";
+       }
+
+       if(!$error)
+
+           {
+               $sql="SELECT * FROM  iBookStore_Login WHERE  login_user_password !='$old_password' ";
+               $res=mysqli_query($mysqli,$sql);
+               if (mysqli_num_rows($res) > 0) {
+               $row = mysqli_fetch_assoc($res);
+               if ($old_password == $row['login_user_password'])
+               {
+                   $err =  "Please Enter Correct Old Password";
+               }
+               elseif($new_password != $new_password)
+               {
+                   $err = "Confirmation Password Does Not Match";
+               }
+                       
+               $login_id = $_SESSION['login_id'];
+               $new_password = sha1(md5($_POST['new_password']));
+               //Insert Captured information to a database table
+               $query="UPDATE iBookStore_Login SET  login_user_password=? WHERE login_id =?";
+               $stmt = $mysqli->prepare($query);
+               //bind paramaters
+               $rc=$stmt->bind_param('si', $new_password, $login_id);
+               $stmt->execute();
+
+               //declare a varible which will be passed to alert function
+               if($stmt)
+               {
+                   $success = "Password Changed" && header("refresh:1; url=pages_admin_profile.php");
+               }
+               else 
+               {
+                   $err = "Please Try Again Or Try Later";
+               }
+            }
+        }
+    }
     require_once('partials/_head.php');
 ?>
 <body>
@@ -82,10 +175,10 @@
                                 <form method="post">
                                     <div class="row mb-4">
                                         <div class="col">
-                                            <input type="text" class="form-control" placeholder="Email" value="<?php echo $logged_user->login_user_email;?>">
+                                            <input type="text" class="form-control" name="login_user_email" placeholder="Email" value="<?php echo $logged_user->login_user_email;?>">
                                         </div>
                                         <div class="col">
-                                            <input type="text" class="form-control" placeholder="Username" value="<?php echo $logged_user->login_user_name;?>">
+                                            <input type="text" class="form-control" name="login_user_name" placeholder="Username" value="<?php echo $logged_user->login_user_name;?>">
                                         </div>
                                     </div>
                                     <input type="submit" name="updateProfile" value="Update Profile" class="btn btn-primary">
