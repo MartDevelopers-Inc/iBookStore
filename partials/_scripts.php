@@ -15,11 +15,4 @@
 <script src="assets/js/custom.js"></script>
 <script src="plugins/apex/apexcharts.min.js"></script>
 <script src="assets/js/dashboard/dash_1.js"></script>
-<script type = "text/javascript" >
-    //Prevent use of back arrow after locking screen
-    var path = 'pages_admin_lock_screen.php'; 
-    history.pushState(null, null, path + window.location.search);
-    window.addEventListener('popstate', function (event) {
-        history.pushState(null, null, path + window.location.search);
-    });
-</script>
+

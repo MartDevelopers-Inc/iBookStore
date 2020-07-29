@@ -75,6 +75,14 @@
         </div>
     </div>
     <?php require_once('partials/_scripts.php');?>
+    <script type = "text/javascript" >
+        //Prevent use of back arrow after locking screen
+        var path = 'pages_admin_lock_screen.php'; 
+        history.pushState(null, null, path + window.location.search);
+        window.addEventListener('popstate', function (event) {
+            history.pushState(null, null, path + window.location.search);
+        });
+    </script>
 </body>
 
 </html>

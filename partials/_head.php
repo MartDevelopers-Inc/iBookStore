@@ -20,6 +20,7 @@
     <link href="assets/css/components/custom-sweetalert.css" rel="stylesheet" type="text/css" />
     <link href="plugins/apex/apexcharts.css" rel="stylesheet" type="text/css">
     <link href="assets/css/dashboard/dash_1.css" rel="stylesheet" type="text/css" />
+    <link href="assets/css/users/user-profile.css" rel="stylesheet" type="text/css" />
     <!--Load Swal-->
     <?php if(isset($success)) {?>
     <!--This code for injecting success alert-->
