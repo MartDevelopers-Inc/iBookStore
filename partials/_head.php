@@ -21,6 +21,14 @@
     <link href="plugins/apex/apexcharts.css" rel="stylesheet" type="text/css">
     <link href="assets/css/dashboard/dash_1.css" rel="stylesheet" type="text/css" />
     <link href="assets/css/users/user-profile.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="plugins/jquery-step/jquery.steps.css">
+    <link rel="stylesheet" type="text/css" href="plugins/select2/select2.min.css">
+    <link href="plugins/flatpickr/flatpickr.css" rel="stylesheet" type="text/css">
+    <link href="plugins/flatpickr/custom-flatpickr.css" rel="stylesheet" type="text/css">
+    <style>
+        #formValidate .wizard > .content {min-height: 25em;}
+        #example-vertical.wizard > .content {min-height: 24.5em;}
+    </style>
     <!--Load Swal-->
     <?php if(isset($success)) {?>
     <!--This code for injecting success alert-->
