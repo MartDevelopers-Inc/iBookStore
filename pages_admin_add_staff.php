@@ -3,7 +3,90 @@
     include('config/config.php');
     include('config/checklogin.php');
     check_login();
+     if(isset($_POST['add_staff']))
+    {
+            $error = 0;
+            if (isset($_POST['staff_name']) && !empty($_POST['staff_name'])) {
+                $staff_name=mysqli_real_escape_string($mysqli,trim($_POST['staff_name']));
+            }else{
+                $error = 1;
+                $err="Name Cannot Be Empty";
+            }
+            if (isset($_POST['staff_natid']) && !empty($_POST['staff_natid'])) {
+                $staff_natid=mysqli_real_escape_string($mysqli,trim($_POST['staff_natid']));
+            }else{
+                $error = 1;
+                $err="National ID Number Cannot Be empty";
+            }
+            if (isset($_POST['staff_phone']) && !empty($_POST['staff_phone'])) {
+                $staff_phone=mysqli_real_escape_string($mysqli,trim($_POST['staff_phone']));
+            }else{
+                $error = 1;
+                $err="Phone Number Cannot Be Empty";
+            }
+            if (isset($_POST['staff_email']) && !empty($_POST['staff_email'])) {
+                $staff_email=mysqli_real_escape_string($mysqli,trim($_POST['staff_email']));
+            }else{
+                $error = 1;
+                $err="Email Cannot Be Empty";
+            }
+            if (isset($_POST['staff_dob']) && !empty($_POST['staff_dob'])) {
+                $staff_dob=mysqli_real_escape_string($mysqli,trim($_POST['staff_dob']));
+            }else{
+                $error = 1;
+                $err="DOB Cannot Be Empty";
+            }
+                        
+            if(!$error)
+            {
+                $sql="SELECT * FROM  iBookStore_HRM WHERE  staff_email='$staff_email' || staff_natid='$staff_natid' ";
+                $res=mysqli_query($mysqli,$sql);
+                if (mysqli_num_rows($res) > 0) {
+                $row = mysqli_fetch_assoc($res);
+                if ($staff_natid == $row['staff_natid'])
+                {
+                    $err =  "National ID Number Exists";
+                }
+                else
+                {
+                    $err =  "Email Address Already Taken";
+                }
+            }
+            else
+            {
+                $staff_name = $_POST['staff_name'];
+                $staff_number = $_POST['staff_number'];
+                $staff_natid = $_POST['staff_natid'];
+                $staff_phone = $_POST['staff_phone'];
+                $staff_email = $_POST['staff_email'];
+                $staff_gender = $_POST['staff_gender'];
+                $staff_dob = $_POST['staff_dob'];                
+                $staff_passport = $_FILES["staff_passport"]["name"];
+                move_uploaded_file($_FILES["staff_passport"]["tmp_name"],"assets/img/".$_FILES["staff_passport"]["name"]);
+                $staff_bio = $_POST['staff_bio'];
+                $staff_adr = $_POST['staff_adr'];               
+
+                //Insert Captured information to a database table
+                $postQuery="INSERT INTO iBookStore_HRM (staff_name, staff_number, staff_natid, staff_phone, staff_email, staff_gender, staff_dob, staff_passport, staff_bio, staff_adr) VALUES (?,?,?,?,?,?,?,?,?,?)";
+                $postStmt = $mysqli->prepare($postQuery);
+                //bind paramaters
+                $rc=$postStmt->bind_param('ssssssssss', $staff_name, $staff_number, $staff_natid, $staff_phone, $staff_email, $staff_gender, $staff_dob, $staff_passport, $staff_bio, $staff_adr);
+                $postStmt->execute();
+                //declare a varible which will be passed to alert function
+                if($postStmt)
+                {
+                 $success = "Staff Added" && header("refresh:1; url=pages_admin_manage_staff.php");
+                }
+                else 
+                {
+                    $err = "Please Try Again Or Try Later";
+                } 
+            }
+        }    
+            
+    }
     require_once('partials/_head.php');
+    require_once('partials/_codeGen.php');
 ?>
 <body>
     <!-- BEGIN LOADER -->
@@ -61,56 +144,60 @@
                                 </div>
                             </div>
                             <div class="">
-                                <form method="post" >
+                                <form method="post" enctype="multipart/form-data" >
                                     <div class="form-row mb-4">
                                         <div class="form-group col-md-6">
                                             <label for="inputEmail4">Full Name</label>
-                                            <input type="name" class="form-control">
+                                            <input type="name" name="staff_name" class="form-control">
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label for="inputPassword4">Staff Number</label>
-                                            <input type="text" class="form-control">
+                                            <input type="text" name="staff_number" value="<?php echo $alpha;?>-<?php echo $beta;?>" class="form-control">
                                         </div>
                                     </div>
                                     <div class="form-row mb-4">
                                         <div class="form-group col-md-4">
                                             <label for="inputAddress">Phone Number</label>
-                                            <input type="text" class="form-control">
+                                            <input type="text" name="staff_phone" class="form-control">
                                         </div>
                                         <div class="form-group col-md-4">
                                             <label for="inputAddress2">National ID Number</label>
-                                            <input type="text" class="form-control">
+                                            <input type="text" name="staff_natid" class="form-control">
                                         </div>
                                         <div class="form-group col-md-4">
                                             <label for="inputAddress2">Email Address</label>
-                                            <input type="email" class="form-control">
+                                            <input type="email" name="staff_email" class="form-control">
                                         </div>
                                     </div>
 
                                     <div class="form-row mb-4">
                                         <div class="form-group col-md-6">
                                             <label for="inputCity">Address</label>
-                                            <input type="text" class="form-control">
+                                            <input type="text" name="staff_adr" class="form-control">
                                         </div>
-                                        <div class="form-group col-md-4">
+                                        <div class="form-group col-md-6">
+                                            <label for="inputCity">Passport</label>
+                                            <input type="file" name="staff_passport" class="form-control">
+                                        </div>
+                                        <div class="form-group col-md-6">
                                             <label for="inputState">Gender</label>
-                                            <select class="form-control  basic">
+                                            <select name="staff_gender" class="form-control  basic">
                                                 <option selected="selected">Male</option>
                                                 <option>Female</option>
                                             </select>
                                         </div>
-                                        <div class="form-group col-md-2">
+                                        <div class="form-group col-md-6">
                                             <label for="inputZip">Date Of Birth</label>
-                                            <input id="basicFlatpickr" value="2019-09-04" class="form-control flatpickr flatpickr-input active" type="text" placeholder="Select Date..">
+                                            <input id="basicFlatpickr" name="staff_dob" value="2019-09-04" class="form-control flatpickr flatpickr-input active" type="text" placeholder="Select Date..">
                                         </div>
                                     </div>
                                     <div class="form-row mb-4">
                                         <div class="form-group col-md-12">
                                             <label for="inputCity">About | Bio </label>
-                                            <textarea type="text" rows="5" class="form-control"></textarea>
+                                            <textarea type="text" rows="5" name="staff_bio" class="form-control"></textarea>
                                         </div>
                                     </div>
-                                    <button type="submit" class="btn btn-primary mt-3">Submit</button>
+                                    <button type="submit" name="add_staff" class="btn btn-primary mt-3">Submit</button>
                                 </form>
                             </div>
                         </div>

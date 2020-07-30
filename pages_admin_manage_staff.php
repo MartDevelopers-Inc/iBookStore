@@ -3,6 +3,24 @@
     include('config/config.php');
     include('config/checklogin.php');
     check_login();
+    //Delete staff
+    if(isset($_GET['delete']))
+    {
+          $id=intval($_GET['delete']);
+          $adn="DELETE FROM  iBookStore_HRM  WHERE  staff_id = ?";
+          $stmt= $mysqli->prepare($adn);
+          $stmt->bind_param('i',$id);
+          $stmt->execute();
+          $stmt->close();	 
+         if($stmt)
+         {
+             $success = "Deleted" && header("refresh:1; url=pages_admin_manage_staff.php");
+         }
+         else
+         {
+             $err = "Try Again Later";
+         }
+      }
     require_once('partials/_head.php');
 ?>
 <body>
@@ -54,48 +72,50 @@
                                     <thead>
                                         <tr>
                                             <th>Name</th>
-                                            <th>Position</th>
-                                            <th>Office</th>
-                                            <th>Age</th>
-                                            <th>Start date</th>
-                                            <th>Salary</th>
-                                            <th>Extn.</th>
-                                            <th>Avatar</th>
+                                            <th>Number</th>
+                                            <th>ID No</th>
+                                            <th>DOB</th>
+                                            <th>Email</th>
+                                            <th>Phone</th>
+                                            <th>Gender</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>Tiger Nixon</td>
-                                            <td>System Architect</td>
-                                            <td>Edinburgh</td>
-                                            <td>61</td>
-                                            <td>2011/04/25</td>
-                                            <td>$320,800</td>
-                                            <td>5421</td>
-                                            <td>
-                                                <div class="d-flex">
-                                                    <div class="usr-img-frame mr-2 rounded-circle">
-                                                        <img alt="avatar" class="img-fluid rounded-circle" src="assets/img/boy.png">
+                                        <?php
+                                            //Fetch all Staff In created_at.Desc
+                                            $ret="SELECT * FROM  iBookStore_HRM"; 
+                                            $stmt= $mysqli->prepare($ret) ;
+                                            $stmt->execute();
+                                            $res=$stmt->get_result();
+                                            $cnt=1;
+                                            while($staff=$res->fetch_object())
+                                            {
+                                        ?>
+                                            <tr>
+                                                <td><?php echo $staff->staff_name;?></td>
+                                                <td><?php echo $staff->staff_number;?></td>
+                                                <td><?php echo $staff->staff_natid;?></td>
+                                                <td><?php echo $staff->staff_dob;?></td>
+                                                <td><?php echo $staff->staff_email;?></td>
+                                                <td><?php echo $staff->staff_phone;?></td>
+                                                <td><?php echo $staff->staff_gender;?></td>
+                                                <td>
+                                                    <div class="btn-group">
+                                                        <button type="button" class="btn btn-dark btn-sm">Manage</button>
+                                                        <button type="button" class="btn btn-dark btn-sm dropdown-toggle dropdown-toggle-split" id="dropdownMenuReference1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-reference="parent">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                                                        </button>
+                                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuReference1">
+                                                        <a class="text-success dropdown-item" href="pages_admin_view_staff.php?view=<?php echo $staff->staff_id;?>">View Staff</a>
+                                                        <a class="text-warning dropdown-item" href="pages_admin_update_staff.php?update=<?php echo $staff->staff_id;?> ">Update Staff</a>
+                                                        <div class="dropdown-divider"></div>
+                                                        <a class="text-danger dropdown-item" href="pages_admin_manage_staff.php?delete=<?php echo $staff->staff_id;?>">Delete Staff</a>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="btn-group">
-                                                    <button type="button" class="btn btn-dark btn-sm">Open</button>
-                                                    <button type="button" class="btn btn-dark btn-sm dropdown-toggle dropdown-toggle-split" id="dropdownMenuReference1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-reference="parent">
-                                                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9"></polyline></svg>
-                                                    </button>
-                                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuReference1">
-                                                      <a class="dropdown-item" href="#">Action</a>
-                                                      <a class="dropdown-item" href="#">Another action</a>
-                                                      <a class="dropdown-item" href="#">Something else here</a>
-                                                      <div class="dropdown-divider"></div>
-                                                      <a class="dropdown-item" href="#">Separated link</a>
-                                                    </div>
-                                                  </div>
-                                            </td>
-                                        </tr>
+                                                </td>
+                                            </tr>
+                                        <?php }?>
                                     </tbody>
                                 </table>
                             </div>
