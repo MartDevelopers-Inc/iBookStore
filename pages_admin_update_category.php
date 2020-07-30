@@ -4,7 +4,7 @@
     include('config/checklogin.php');
     check_login();
 
-     if(isset($_POST['add_category']))
+     if(isset($_POST['update_category']))
     {
         if ( empty($_POST["cat_name"]) || empty($_POST["cat_number"]) || empty($_POST['cat_desc']) ) 
         {
@@ -15,17 +15,18 @@
                 $cat_name = $_POST['cat_name'];
                 $cat_number = $_POST['cat_number'];
                 $cat_desc = $_POST['cat_desc'];
+                $update = $_GET['update'];
                 
                 //Insert Captured information to a database table
-                $postQuery="INSERT INTO iBookStore_book_categories (cat_name, cat_number, cat_desc) VALUES (?,?,?)";
+                $postQuery="UPDATE iBookStore_book_categories SET cat_name =?, cat_number =?, cat_desc =? WHERE  cat_id =?";
                 $postStmt = $mysqli->prepare($postQuery);
                 //bind paramaters
-                $rc=$postStmt->bind_param('sss', $cat_name, $cat_number, $cat_desc);
+                $rc=$postStmt->bind_param('sssi', $cat_name, $cat_number, $cat_desc, $update);
                 $postStmt->execute();
                 //declare a varible which will be passed to alert function
                 if($postStmt)
                 {
-                 $success = "Book Category Added" && header("refresh:1; url=pages_admin_add_book_category.php");
+                 $success = "Book Category Updated" && header("refresh:1; url=pages_admin_manage_category.php");
                 }
                 else 
                 {
@@ -44,8 +45,19 @@
     </div></div></div>
     <!--  END LOADER -->
 
+
     <!--  BEGIN NAVBAR  -->
-    <?php require_once('partials/_nav.php');?>
+    <?php
+        require_once('partials/_nav.php');
+        $update = $_GET['update'];
+        $ret="SELECT * FROM  iBookStore_book_categories WHERE cat_id ='$update' "; 
+        $stmt= $mysqli->prepare($ret) ;
+        $stmt->execute();
+        $res=$stmt->get_result();
+        $cnt=1;
+        while($categories=$res->fetch_object())
+        {
+    ?>
     <!--  END NAVBAR  -->
 
     <!--  BEGIN NAVBAR  -->
@@ -59,7 +71,8 @@
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="pages_admin_dashboard.php">Dashboard</a></li>
                                 <li class="breadcrumb-item"><a href="javascript:void(0);">Books</a></li>
-                                <li class="breadcrumb-item active" aria-current="page"><span>Add Books Category</span></li>
+                                <li class="breadcrumb-item"><a href="javascript:void(0);">Manage Book Categories</a></li>
+                                <li class="breadcrumb-item active" aria-current="page"><span><?php echo $categories->cat_name;?></span></li>
                             </ol>
                         </nav>
                     </div>
@@ -97,21 +110,21 @@
                                     <div class="form-row mb-4">
                                         <div class="form-group col-md-6">
                                             <label for="inputEmail4">Book Category Name</label>
-                                            <input type="name" name="cat_name" class="form-control">
+                                            <input type="name" name="cat_name" value="<?php echo $categories->cat_name;?>" class="form-control">
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label for="inputPassword4">Book Category Number</label>
-                                            <input type="text" name="cat_number" value="<?php echo $alpha;?>-<?php echo $beta;?>" class="form-control">
+                                            <input type="text" name="cat_number" value="<?php echo $categories->cat_number;?>" class="form-control">
                                         </div>
                                     </div>
                                     
                                     <div class="form-row mb-4">
                                         <div class="form-group col-md-12">
                                             <label for="inputCity">Book Category Description</label>
-                                            <textarea type="text" rows="5" name="cat_desc" class="form-control"></textarea>
+                                            <textarea type="text" rows="5" name="cat_desc" class="form-control"><?php echo $categories->cat_desc;?></textarea>
                                         </div>
                                     </div>
-                                    <button type="submit" name="add_category" class="btn btn-primary mt-3">Submit</button>
+                                    <button type="submit" name="update_category" class="btn btn-primary mt-3">Update</button>
                                 </form>
                             </div>
                         </div>
@@ -122,7 +135,8 @@
         </div>
         <!--  END CONTENT PART  -->
     </div>
-    <?php require_once('partials/_scripts.php');?>   
+    <?php require_once('partials/_scripts.php'); }?>   
+
 </body>
 
 </html>
