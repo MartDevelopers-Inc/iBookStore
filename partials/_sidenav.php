@@ -42,9 +42,6 @@
                     <li>
                         <a href="pages_admin_login_permissions.php"> Login Permissions </a>
                     </li>                            
-                    <li>
-                        <a href="pages_admin_manage_permissions.php"> Manage Permissions </a>
-                    </li>
                 </ul>
             </li>
 
