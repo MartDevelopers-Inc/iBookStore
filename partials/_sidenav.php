@@ -57,7 +57,7 @@
                 </a>
                 <ul class="collapse submenu list-unstyled" id="books" data-parent="#accordionExample">
                     <li>
-                        <a href="pages_admin_add_book_category"> Add Category </a>
+                        <a href="pages_admin_add_book_category.php"> Add Category </a>
                     </li>
                     <li>
                         <a href="pages_admin_manage_category.php"> Manage Category  </a>
