@@ -40,7 +40,7 @@
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="pages_admin_dashboard.php">Dashboard</a></li>
                                 <li class="breadcrumb-item"><a href="javascript:void(0);">Books</a></li>
-                                <li class="breadcrumb-item active" aria-current="page"><span>Manage Books Categories</span></li>
+                                <li class="breadcrumb-item active" aria-current="page"><span>Manage Books</span></li>
                             </ol>
                         </nav>
                     </div>
