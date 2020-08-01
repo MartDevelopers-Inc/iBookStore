@@ -19,6 +19,8 @@
         while($sales=$res->fetch_object())
         {
             $total_amt = $sales->s_amt * $sales->s_copies;
+            $tax = 0.17 *$total_amt;
+            $taxable = $total_amt - $tax;
 
     ?>
     <!--  END NAVBAR  -->
@@ -168,23 +170,7 @@
                                                 <div class="row mt-4">
                                                     <div class="col-sm-5 col-12 order-sm-0 order-1">
                                                         <div class="inv--payment-info">
-                                                            <div class="row">
-                                                                <div class="col-sm-12 col-12">
-                                                                    <h6 class=" inv-title">Payment Info:</h6>
-                                                                </div>
-                                                                <div class="col-sm-4 col-12">
-                                                                    <p class=" inv-subtitle">Bank Name: </p>
-                                                                </div>
-                                                                <div class="col-sm-8 col-12">
-                                                                    <p class="">Bank of America</p>
-                                                                </div>
-                                                                <div class="col-sm-4 col-12">
-                                                                    <p class=" inv-subtitle">Account Number : </p>
-                                                                </div>
-                                                                <div class="col-sm-8 col-12">
-                                                                    <p class="">1234567890</p>
-                                                                </div>
-                                                            </div>
+                                                            
                                                         </div>
                                                     </div>
                                                     <div class="col-sm-7 col-12 order-sm-1 order-0">
@@ -194,25 +180,25 @@
                                                                     <p class="">Sub Total: </p>
                                                                 </div>
                                                                 <div class="col-sm-4 col-5">
-                                                                    <p class="">$13300</p>
+                                                                    <p class="">Ksh <?php echo $total_amt;?></p>
                                                                 </div>
                                                                 <div class="col-sm-8 col-7">
                                                                     <p class="">Tax Amount: </p>
                                                                 </div>
                                                                 <div class="col-sm-4 col-5">
-                                                                    <p class="">$700</p>
+                                                                    <p class="">14%</p>
                                                                 </div>
                                                                 <div class="col-sm-8 col-7">
-                                                                    <p class=" discount-rate">Discount : <span class="discount-percentage">5%</span> </p>
+                                                                    <p class="">Tax Addition </p>
                                                                 </div>
                                                                 <div class="col-sm-4 col-5">
-                                                                    <p class="">$700</p>
+                                                                    <p class="">Ksh <?php echo $tax;?></p>
                                                                 </div>
                                                                 <div class="col-sm-8 col-7 grand-total-title">
                                                                     <h4 class="">Grand Total : </h4>
                                                                 </div>
                                                                 <div class="col-sm-4 col-5 grand-total-amount">
-                                                                    <h4 class="">$14000</h4>
+                                                                    <h4 class="">Ksh <?php echo $total_amt;?></h4>
                                                                 </div>
                                                             </div>
                                                         </div>
