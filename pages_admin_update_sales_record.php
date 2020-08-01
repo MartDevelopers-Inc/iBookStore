@@ -21,12 +21,13 @@
                 $s_date = $_POST['s_date'];
                 $s_year = $_POST['s_year'];
                 $update = $_GET['update'];
+                $s_copies = $_POST['s_copies'];
                 
                 //Insert Captured information to a database table
-                $postQuery="UPDATE iBookStore_Sales SET b_title =?, b_isbn =?, s_code =?, s_amt =?, b_id =?, s_month =?, s_date =?, s_year=? WHERE s_id =?";
+                $postQuery="UPDATE iBookStore_Sales SET s_copies =?, b_title =?, b_isbn =?, s_code =?, s_amt =?, b_id =?, s_month =?, s_date =?, s_year=? WHERE s_id =?";
                 $postStmt = $mysqli->prepare($postQuery);
                 //bind paramaters
-                $rc=$postStmt->bind_param('ssssssssi', $b_title, $b_isbn, $s_code, $s_amt, $b_id, $s_month, $s_date, $s_year, $update);
+                $rc=$postStmt->bind_param('sssssssssi', $s_copies, $b_title, $b_isbn, $s_code, $s_amt, $b_id, $s_month, $s_date, $s_year, $update);
                 $postStmt->execute();
                 //declare a varible which will be passed to alert function
                 if($postStmt)
@@ -111,12 +112,15 @@
                             <div class="">
                                 <form method="post" enctype="multipart/form-data" >
                                     <div class="form-row mb-4">
-                                        <div class="form-group col-md-6">
+                                        <div class="form-group col-md-4">
                                             <label for="inputEmail4">Sale Code | Number</label>
                                             <input type="name" name="s_code" value="<?php echo $sales->s_code;?>" class="form-control">
                                         </div>
-
-                                        <div class="form-group col-md-6">
+                                        <div class="form-group col-md-4">
+                                            <label for="inputEmail4">Copies Sold</label>
+                                            <input type="name" name="s_copies" value="<?php echo $sales->s_copies;?>" class="form-control">
+                                        </div>
+                                        <div class="form-group col-md-4">
                                             <label for="inputState">Book ISBN Number</label>
                                             <select name="b_isbn" id ="bookISBN" onChange="getBookDetails(this.value)" class="form-control  basic">
                                                 <option selected="selected">Select ISBN Number</option>
