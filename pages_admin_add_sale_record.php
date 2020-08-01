@@ -17,16 +17,15 @@
                 $s_code = $_POST['s_code'];
                 $s_amt =  $_POST['s_amt'];
                 $b_id = $_POST['b_id'];
-                $s_id  = $_POST['s_id'];
                 $s_month = $_POST['s_month'];
                 $s_date = $_POST['s_date'];
                 $s_year = $_POST['s_year'];
                 
                 //Insert Captured information to a database table
-                $postQuery="INSERT INTO iBookStore_Sales (b_title, b_isbn, s_code, s_amt, b_id, s_id, s_month, s_date, s_year) VALUES (?,?,?,?,?,?,?,?,?)";
+                $postQuery="INSERT INTO iBookStore_Sales (b_title, b_isbn, s_code, s_amt, b_id, s_month, s_date, s_year) VALUES (?,?,?,?,?,?,?,?)";
                 $postStmt = $mysqli->prepare($postQuery);
                 //bind paramaters
-                $rc=$postStmt->bind_param('sssssssss', $b_title, $b_isbn, $s_code, $s_amt, $b_id, $s_id, $s_month, $s_date, $s_year);
+                $rc=$postStmt->bind_param('ssssssss', $b_title, $b_isbn, $s_code, $s_amt, $b_id, $s_month, $s_date, $s_year);
                 $postStmt->execute();
                 //declare a varible which will be passed to alert function
                 if($postStmt)
@@ -105,15 +104,10 @@
                                             <label for="inputEmail4">Sale Code | Number</label>
                                             <input type="name" name="s_code" value="<?php echo $alpha;?>-<?php echo $beta;?>" class="form-control">
                                         </div>
-                                        <div class="form-group col-md-6">
-                                            <label for="inputEmail4">Book Price (Ksh)</label>
-                                            <input type="name" name="s_amt" class="form-control">
-                                        </div>
-                                   </div>
-                                    <div class="form-row mb-4">
+
                                         <div class="form-group col-md-6">
                                             <label for="inputState">Book ISBN Number</label>
-                                            <select name="staff_gender" id ="bookISBN" onChange="getBookDetails(this.value)" class="form-control  basic">
+                                            <select name="b_isbn" id ="bookISBN" onChange="getBookDetails(this.value)" class="form-control  basic">
                                                 <option selected="selected">Select ISBN Number</option>
                                                 <?php
                                                     $ret="SELECT * FROM  iBookStore_books"; 
@@ -127,14 +121,21 @@
                                                     <option><?php echo $books->b_isbn;?></option>
                                                 <?php }?>
                                             </select>
+                                        </div>                                        
+                                    </div>
+
+                                    <div class="form-row mb-4">
+                                        <div class="form-group col-md-6">
+                                            <label for="inputEmail4">Book Price (Ksh)</label>
+                                            <input type="name" name="s_amt" id="bookPrice" class="form-control">
                                         </div>
                                         <div class="form-group col-md-6">
-                                            <label for="inputEmail4">Book Title</label>
-                                            <input type="name" name="b_title" id="bookTitle" class="form-control">
+                                            <label for="inputEmail4">Book ID</label>
+                                            <input type="name" name="b_id" id="book_ID" class="form-control">
                                         </div>
                                         <div class="form-group col-md-6">
-                                            <label for="inputPassword4">Book ID</label>
-                                            <input type="text" name="b_id" id="bookID" class="form-control">
+                                            <label for="inputPassword4">Book Title</label>
+                                            <input type="text" name="b_title" id="bookTitle" class="form-control">
                                         </div>
                                     </div>
                                     <div class="form-row mb-4" style ="display:none" >

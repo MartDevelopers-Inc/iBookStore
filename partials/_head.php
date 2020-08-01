@@ -74,25 +74,38 @@
 
             type: "POST",
             url: "ajax.php",
-            data:'bookISBN='+val,
+            data: 'bookISBN='+val,
             success: function(data)
             {
             //alert(data);
-            $('#bookTitle').val(data);
+            $('#book_ID').val(data);
             }
             });
 
             $.ajax({
+
                 type: "POST",
                 url: "ajax.php",
-                data:'bookTitle='+val,
+                data:'book_ID='+val,
                 success: function(data)
                 {
-                    //alert(data);
-                    $('#bookID').val(data);
+                //alert(data);
+                $('#bookPrice').val(data);
                 }
             });
-            
+
+            $.ajax({
+
+                type: "POST",
+                url: "ajax.php",
+                data:'bookPrice='+val,
+                success: function(data)
+                {
+                //alert(data);
+                $('#bookTitle').val(data);
+                }
+            });
+
         }
     </script>
 </head>
