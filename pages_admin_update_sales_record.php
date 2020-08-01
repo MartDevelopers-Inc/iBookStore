@@ -4,7 +4,7 @@
     include('config/checklogin.php');
     check_login();
 
-     if(isset($_POST['add_sale']))
+     if(isset($_POST['update_sale']))
     {
         if ( empty($_POST["s_code"]) || empty($_POST["b_isbn"]) || empty($_POST['s_amt']) || empty($_POST['b_title']) || empty($_POST['s_date']) ) 
         {
@@ -20,17 +20,18 @@
                 $s_month = $_POST['s_month'];
                 $s_date = $_POST['s_date'];
                 $s_year = $_POST['s_year'];
+                $update = $_GET['update'];
                 
                 //Insert Captured information to a database table
-                $postQuery="INSERT INTO iBookStore_Sales (b_title, b_isbn, s_code, s_amt, b_id, s_month, s_date, s_year) VALUES (?,?,?,?,?,?,?,?)";
+                $postQuery="UPDATE iBookStore_Sales SET b_title =?, b_isbn =?, s_code =?, s_amt =?, b_id =?, s_month =?, s_date =?, s_year=? WHERE s_id =?";
                 $postStmt = $mysqli->prepare($postQuery);
                 //bind paramaters
-                $rc=$postStmt->bind_param('ssssssss', $b_title, $b_isbn, $s_code, $s_amt, $b_id, $s_month, $s_date, $s_year);
+                $rc=$postStmt->bind_param('ssssssssi', $b_title, $b_isbn, $s_code, $s_amt, $b_id, $s_month, $s_date, $s_year, $update);
                 $postStmt->execute();
                 //declare a varible which will be passed to alert function
                 if($postStmt)
                 {
-                 $success = "Book Sold" && header("refresh:1; url=pages_admin_add_sale_record.php");
+                 $success = "Updated" && header("refresh:1; url=pages_admin_manage_sales_record.php");
                 }
                 else 
                 {
@@ -64,7 +65,7 @@
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="pages_admin_dashboard.php">Dashboard</a></li>
                                 <li class="breadcrumb-item"><a href="pages_admin_add_sale_record.php">Sales</a></li>
-                                <li class="breadcrumb-item active" aria-current="page"><span>Add Sale Record</span></li>
+                                <li class="breadcrumb-item active" aria-current="page"><span>Update Sale Record</span></li>
                             </ol>
                         </nav>
                     </div>
@@ -82,7 +83,17 @@
         <div class="search-overlay"></div>
 
         <!--  BEGIN SIDEBAR  -->
-        <?php require_once('partials/_sidenav.php');?>
+        <?php 
+            $update = $_GET['update'];
+            $ret="SELECT * FROM  iBookStore_Sales WHERE s_id = '$update'"; 
+            $stmt= $mysqli->prepare($ret) ;
+            $stmt->execute();
+            $res=$stmt->get_result();
+            $cnt=1;
+            while($sales=$res->fetch_object())
+            {
+            require_once('partials/_sidenav.php');
+        ?>
         <!--  END SIDEBAR  -->
         <!--  BEGIN CONTENT PART  -->
         <div id="content" class="main-content">
@@ -102,24 +113,14 @@
                                     <div class="form-row mb-4">
                                         <div class="form-group col-md-6">
                                             <label for="inputEmail4">Sale Code | Number</label>
-                                            <input type="name" name="s_code" value="<?php echo $alpha;?>-<?php echo $beta;?>" class="form-control">
+                                            <input type="name" name="s_code" value="<?php echo $sales->s_code;?>" class="form-control">
                                         </div>
 
                                         <div class="form-group col-md-6">
                                             <label for="inputState">Book ISBN Number</label>
                                             <select name="b_isbn" id ="bookISBN" onChange="getBookDetails(this.value)" class="form-control  basic">
                                                 <option selected="selected">Select ISBN Number</option>
-                                                <?php
-                                                    $ret="SELECT * FROM  iBookStore_books"; 
-                                                    $stmt= $mysqli->prepare($ret) ;
-                                                    $stmt->execute();
-                                                    $res=$stmt->get_result();
-                                                    $cnt=1;
-                                                    while($books=$res->fetch_object())
-                                                    {
-                                                ?>
-                                                    <option><?php echo $books->b_isbn;?></option>
-                                                <?php }?>
+                                                    <option><?php echo $sales->b_isbn;?></option>
                                             </select>
                                         </div>                                        
                                     </div>
@@ -152,7 +153,8 @@
                                             <input type="text" readonly name="s_year" value="<?php echo date('Y');?>"  class="form-control">
                                         </div>
                                     </div>
-                                    <button type="submit" name="add_sale" class="btn btn-primary mt-3">Save</button>
+                                    <button type="submit" name="update_sale" class="btn btn-primary mt-3">Save</button>
+                                    <?php }?>
                                 </form>
                             </div>
                         </div>

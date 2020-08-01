@@ -20,12 +20,13 @@
                 $cat_id  = $_GET['cat_id'];
                 $cat_name = $_GET['cat_name'];
                 $b_count = $_POST['b_count'];
+                $b_price = $_POST['b_price'];
                 
                 //Insert Captured information to a database table
-                $postQuery="INSERT INTO iBookStore_books (b_title, b_isbn, b_author, b_publisher, b_summary, cat_id, cat_name, b_count) VALUES (?,?,?,?,?,?,?,?)";
+                $postQuery="INSERT INTO iBookStore_books (b_price, b_title, b_isbn, b_author, b_publisher, b_summary, cat_id, cat_name, b_count) VALUES (?,?,?,?,?,?,?,?,?)";
                 $postStmt = $mysqli->prepare($postQuery);
                 //bind paramaters
-                $rc=$postStmt->bind_param('ssssssss', $b_title, $b_isbn, $b_author, $b_publisher, $b_summary, $cat_id, $cat_name, $b_count);
+                $rc=$postStmt->bind_param('sssssssss', $b_price, $b_title, $b_isbn, $b_author, $b_publisher, $b_summary, $cat_id, $cat_name, $b_count);
                 $postStmt->execute();
                 //declare a varible which will be passed to alert function
                 if($postStmt)
@@ -100,11 +101,15 @@
                             <div class="">
                                 <form method="post" enctype="multipart/form-data" >
                                     <div class="form-row mb-4">
-                                        <div class="form-group col-md-6">
+                                        <div class="form-group col-md-4">
                                             <label for="inputEmail4">Book Title</label>
                                             <input type="name" name="b_title" class="form-control">
                                         </div>
-                                        <div class="form-group col-md-6">
+                                        <div class="form-group col-md-4">
+                                            <label for="inputEmail4">Book Price(Ksh)</label>
+                                            <input type="name" name="b_price" class="form-control">
+                                        </div>
+                                        <div class="form-group col-md-4">
                                             <label for="inputPassword4">Book ISBN Number</label>
                                             <input type="text" name="b_isbn" value="<?php echo $alpha;?>-<?php echo $beta;?>" class="form-control">
                                         </div>

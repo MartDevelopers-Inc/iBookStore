@@ -7,14 +7,14 @@
     if(isset($_GET['delete']))
     {
           $id=intval($_GET['delete']);
-          $adn="DELETE FROM  iBookStore_books  WHERE  b_id = ?";
+          $adn="DELETE FROM  iBookStore_Sales  WHERE  s_id = ?";
           $stmt= $mysqli->prepare($adn);
           $stmt->bind_param('i',$id);
           $stmt->execute();
           $stmt->close();	 
          if($stmt)
          {
-             $success = "Deleted" && header("refresh:1; url=pages_admin_manage_books.php");
+             $success = "Deleted" && header("refresh:1; url=pages_admin_manage_sales_record.php");
          }
          else
          {
@@ -39,8 +39,8 @@
                         <nav class="breadcrumb-one" aria-label="breadcrumb">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="pages_admin_dashboard.php">Dashboard</a></li>
-                                <li class="breadcrumb-item"><a href="javascript:void(0);">Books</a></li>
-                                <li class="breadcrumb-item active" aria-current="page"><span>Manage Books</span></li>
+                                <li class="breadcrumb-item"><a href="javascript:void(0);">Sales</a></li>
+                                <li class="breadcrumb-item active" aria-current="page"><span>Manage Book Sales Records</span></li>
                             </ol>
                         </nav>
                     </div>
@@ -71,46 +71,40 @@
                                 <table id="html5-extension" class="table table-hover non-hover" style="width:100%">
                                     <thead>
                                         <tr>
-                                            <th>Title</th>
-                                            <th>ISBN</th>
-                                            <th>Book Category</th>
-                                            <th>Author</th>
-                                            <th>Publisher</th>
-                                            <th>Copies Available</th>
-                                            <th>Price</th>
-                                            <th>Date Added</th>
+                                            <th>Receipt Number</th>
+                                            <th>Book ISBN</th>
+                                            <th>Book Title</th>
+                                            <th>Sell Price</th>
+                                            <th>Date Sold</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php
-                                            $ret="SELECT * FROM  iBookStore_books"; 
+                                            $ret="SELECT * FROM  iBookStore_Sales"; 
                                             $stmt= $mysqli->prepare($ret) ;
                                             $stmt->execute();
                                             $res=$stmt->get_result();
                                             $cnt=1;
-                                            while($books=$res->fetch_object())
+                                            while($sales=$res->fetch_object())
                                             {
                                         ?>
                                             <tr>
-                                                <td><?php echo $books->b_title;?></td>
-                                                <td><?php echo $books->b_isbn;?></td>
-                                                <td><?php echo $books->cat_name;?></td>
-                                                <td><?php echo $books->b_author;?></td>
-                                                <td><?php echo $books->b_publisher;?></td>
-                                                <td><?php echo $books->b_count;?> Copies</td>
-                                                <td>Ksh <?php echo $books->b_price;?></td>
-                                                <td><?php echo date("d M Y",strtotime($books->created_at));?></td>
+                                                <td><?php echo $sales->s_code;?></td>
+                                                <td><?php echo $sales->b_isbn;?></td>
+                                                <td><?php echo $sales->b_title;?></td>
+                                                <td>Ksh <?php echo $sales->s_amt;?></td>
+                                                <td><?php echo date("d M Y g:i",strtotime($sales->created_at));?></td>
                                                 <td>
                                                     <div class="btn-group">
-                                                        <button type="button" class="btn btn-dark btn-sm">Manage Book</button>
+                                                        <button type="button" class="btn btn-dark btn-sm">Manage Sales</button>
                                                         <button type="button" class="btn btn-dark btn-sm dropdown-toggle dropdown-toggle-split" id="dropdownMenuReference1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-reference="parent">
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9"></polyline></svg>
                                                         </button>
                                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuReference1">
-                                                        <a class="text-warning dropdown-item" href="pages_admin_update_book.php?update=<?php echo $books->b_id;?> ">Update Book</a>
+                                                        <a class="text-warning dropdown-item" href="pages_admin_update_sales_record.php?update=<?php echo $sales->s_id;?> ">Update Book</a>
                                                         <div class="dropdown-divider"></div>
-                                                        <a class="text-danger dropdown-item" href="pages_admin_manage_books.php?delete=<?php echo $books->b_id;?>">Delete Book</a>
+                                                        <a class="text-danger dropdown-item" href="pages_admin_manage_sales_record.php?delete=<?php echo $sales->s_id;?>">Delete Book</a>
                                                         </div>
                                                     </div>
                                                 </td>
