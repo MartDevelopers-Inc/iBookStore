@@ -53,71 +53,72 @@
                                 <table class="multi-table table table-hover" style="width:100%">
                                     <thead>
                                         <tr>
-                                            <th>Name</th>
-                                            <th>Position</th>
-                                            <th>Office</th>
-                                            <th>Age</th>
-                                            <th>Salary</th>
-                                            <th class="text-center">Status</th>
-                                            <th class="text-center">Action</th>
+                                            <th>Title</th>
+                                            <th>ISBN</th>
+                                            <th>Book Category</th>
+                                            <th>Author</th>
+                                            <th>Publisher</th>
+                                            <th>Copies Available</th>
+                                            <th>Price</th>
+                                            <th>Date Added</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>Tiger Nixon</td>
-                                            <td>System Architect</td>
-                                            <td>Edinburgh</td>
-                                            <td>61</td>
-                                            <td>$320,800</td>
-                                            <td>
-                                                <div class="t-dot bg-primary" data-toggle="tooltip" data-placement="top" title="" data-original-title="Normal"></div>
-                                            </td>
-                                            <td class="text-center"> <button class="btn btn-primary">view</button> </td>
-                                        </tr>
+                                        <?php
+                                            $ret="SELECT * FROM  iBookStore_books"; 
+                                            $stmt= $mysqli->prepare($ret) ;
+                                            $stmt->execute();
+                                            $res=$stmt->get_result();
+                                            $cnt=1;
+                                            while($books=$res->fetch_object())
+                                            {
+                                        ?>
+                                            <tr>
+                                                <td><?php echo $books->b_title;?></td>
+                                                <td><?php echo $books->b_isbn;?></td>
+                                                <td><?php echo $books->cat_name;?></td>
+                                                <td><?php echo $books->b_author;?></td>
+                                                <td><?php echo $books->b_publisher;?></td>
+                                                <td><?php echo $books->b_count;?> Copies</td>
+                                                <td>Ksh <?php echo $books->b_price;?></td>
+                                                <td><span class="badge outline-badge-primary"><?php echo date("d M Y",strtotime($books->created_at));?></span></td>
+                                            </tr>
+                                        <?php }?>
                                     </tbody>
                                 </table>
                                 <hr>
                                 <table class="multi-table table table-striped table-bordered table-hover non-hover" style="width:100%">
                                     <thead>
                                     <h2>Book Sales Records</h2>
-
                                         <tr>
-                                            <th>Name</th>
-                                            <th>Position</th>
-                                            <th>Progress</th>
-                                            <th>Office</th>
-                                            <th>Age</th>
-                                            <th>Salary</th>
-                                            <th>Action</th>
+                                            <th>Receipt Number</th>
+                                            <th>Book ISBN</th>
+                                            <th>Book Title</th>
+                                            <th>Sell Price</th>
+                                            <th>Copies Sold</th>
+                                            <th>Date Sold</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>Jena Gaines</td>
-                                            <td>Office Manager</td>
-                                            <td>
-                                                <div class="progress br-30">
-                                                    <div class="progress-bar br-30 bg-warning" role="progressbar" style="width: 67%" aria-valuenow="67" aria-valuemin="0" aria-valuemax="100"></div>
-                                                </div>
-                                            </td>
-                                            <td>London</td>
-                                            <td>30</td>
-                                            <td>$90,560</td>
-                                            <td class="text-center">
-                                                <div class="dropdown custom-dropdown">
-                                                    <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-horizontal"><circle cx="12" cy="12" r="1"></circle><circle cx="19" cy="12" r="1"></circle><circle cx="5" cy="12" r="1"></circle></svg>
-                                                    </a>
-                                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink1">
-                                                        <a class="dropdown-item" href="javascript:void(0);">View</a>
-                                                        <a class="dropdown-item" href="javascript:void(0);">Edit</a>
-                                                        <a class="dropdown-item" href="javascript:void(0);">Delete</a>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
+                                        <?php
+                                            $ret="SELECT * FROM  iBookStore_Sales"; 
+                                            $stmt= $mysqli->prepare($ret) ;
+                                            $stmt->execute();
+                                            $res=$stmt->get_result();
+                                            $cnt=1;
+                                            while($sales=$res->fetch_object())
+                                            {
+                                        ?>
+                                            <tr>
+                                                <td><?php echo $sales->s_code;?></td>
+                                                <td><?php echo $sales->b_isbn;?></td>
+                                                <td><?php echo $sales->b_title;?></td>
+                                                <td>Ksh <?php echo $sales->s_amt;?></td>
+                                                <td><?php echo $sales->s_copies;?> Copies</td>
+                                                <td><span class="badge outline-badge-primary"><?php echo date("d M Y g:i",strtotime($sales->created_at));?></span></td>
+                                            </tr>
+                                        <?php }?>
                                     </tbody>
-
                                 </table>
                             </div>
                         </div>
