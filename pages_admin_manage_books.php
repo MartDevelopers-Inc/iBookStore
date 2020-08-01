@@ -77,6 +77,7 @@
                                             <th>Author</th>
                                             <th>Publisher</th>
                                             <th>Copies Available</th>
+                                            <th>Price</th>
                                             <th>Date Added</th>
                                             <th>Action</th>
                                         </tr>
@@ -97,8 +98,9 @@
                                                 <td><?php echo $books->cat_name;?></td>
                                                 <td><?php echo $books->b_author;?></td>
                                                 <td><?php echo $books->b_publisher;?></td>
-                                                <td><?php echo $books->b_count;?></td>
-                                                <td><?php echo date("d M Y - g:i",strtotime($books->created_at));?></td>
+                                                <td><?php echo $books->b_count;?> Copies</td>
+                                                <td>Ksh <?php echo $books->b_price;?></td>
+                                                <td><?php echo date("d M Y",strtotime($books->created_at));?></td>
                                                 <td>
                                                     <div class="btn-group">
                                                         <button type="button" class="btn btn-dark btn-sm">Manage Book</button>

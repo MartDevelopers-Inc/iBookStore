@@ -102,18 +102,18 @@
                                 <form method="post" enctype="multipart/form-data" >
                                     <div class="form-row mb-4">
                                         <div class="form-group col-md-6">
-                                            <label for="inputEmail4">Sale Code</label>
-                                            <input type="name" name="s_code" class="form-control">
+                                            <label for="inputEmail4">Sale Code | Number</label>
+                                            <input type="name" name="s_code" value="<?php echo $alpha;?>-<?php echo $beta;?>" class="form-control">
                                         </div>
                                         <div class="form-group col-md-6">
-                                            <label for="inputEmail4">Book Price</label>
+                                            <label for="inputEmail4">Book Price (Ksh)</label>
                                             <input type="name" name="s_amt" class="form-control">
                                         </div>
                                    </div>
                                     <div class="form-row mb-4">
                                         <div class="form-group col-md-6">
                                             <label for="inputState">Book ISBN Number</label>
-                                            <select name="staff_gender" class="form-control  basic">
+                                            <select name="staff_gender" id ="bookISBN" onChange="getBookDetails(this.value)" class="form-control  basic">
                                                 <option selected="selected">Select ISBN Number</option>
                                                 <?php
                                                     $ret="SELECT * FROM  iBookStore_books"; 
@@ -130,28 +130,28 @@
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label for="inputEmail4">Book Title</label>
-                                            <input type="name" name="b_title" class="form-control">
+                                            <input type="name" name="b_title" id="bookTitle" class="form-control">
                                         </div>
                                         <div class="form-group col-md-6">
-                                            <label for="inputPassword4">Book ISBN Number</label>
-                                            <input type="text" name="b_isbn" value="<?php echo $alpha;?>-<?php echo $beta;?>" class="form-control">
+                                            <label for="inputPassword4">Book ID</label>
+                                            <input type="text" name="b_id" id="bookID" class="form-control">
                                         </div>
                                     </div>
-                                    <div class="form-row mb-4">
+                                    <div class="form-row mb-4" style ="display:none" >
                                         <div class="form-group col-md-4">
-                                            <label for="inputEmail4">Book Author</label>
-                                            <input type="name" name="b_author" class="form-control">
+                                            <label for="inputEmail4">Date</label>
+                                            <input type="name" readonly name="s_date" value="<?php echo date('d');?>" class="form-control">
                                         </div>
                                         <div class="form-group col-md-4">
-                                            <label for="inputPassword4">Book Publisher</label>
-                                            <input type="text" name="b_publisher"  class="form-control">
+                                            <label for="inputPassword4">Month</label>
+                                            <input type="text" readonly name="s_month" value="<?php echo date('M');?>"  class="form-control">
                                         </div>
                                         <div class="form-group col-md-4">
-                                            <label for="inputPassword4">Book Copies Available</label>
-                                            <input type="text" name="b_count"  class="form-control">
+                                            <label for="inputPassword4">Year</label>
+                                            <input type="text" readonly name="s_year" value="<?php echo date('Y');?>"  class="form-control">
                                         </div>
                                     </div>
-                                    <button type="submit" name="add_sale" class="btn btn-primary mt-3">Add Sale</button>
+                                    <button type="submit" name="add_sale" class="btn btn-primary mt-3">Save</button>
                                 </form>
                             </div>
                         </div>

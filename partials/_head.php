@@ -67,4 +67,32 @@
         </script>
 
     <?php } ?>
+    <script>
+        function getBookDetails(val)
+        {
+            $.ajax({
+
+            type: "POST",
+            url: "ajax.php",
+            data:'bookISBN='+val,
+            success: function(data)
+            {
+            //alert(data);
+            $('#bookTitle').val(data);
+            }
+            });
+
+            $.ajax({
+                type: "POST",
+                url: "ajax.php",
+                data:'bookTitle='+val,
+                success: function(data)
+                {
+                    //alert(data);
+                    $('#bookID').val(data);
+                }
+            });
+            
+        }
+    </script>
 </head>
