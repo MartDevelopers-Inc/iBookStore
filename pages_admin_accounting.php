@@ -4,23 +4,6 @@
     include('config/checklogin.php');
     check_login();
 
-    if(isset($_GET['delete']))
-    {
-          $id=intval($_GET['delete']);
-          $adn="DELETE FROM  iBookStore_Sales  WHERE  s_id = ?";
-          $stmt= $mysqli->prepare($adn);
-          $stmt->bind_param('i',$id);
-          $stmt->execute();
-          $stmt->close();	 
-         if($stmt)
-         {
-             $success = "Deleted" && header("refresh:1; url=pages_admin_manage_sales_record.php");
-         }
-         else
-         {
-             $err = "Try Again Later";
-         }
-      }
     require_once('partials/_head.php');
 ?>
 <body>
@@ -39,8 +22,7 @@
                         <nav class="breadcrumb-one" aria-label="breadcrumb">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="pages_admin_dashboard.php">Dashboard</a></li>
-                                <li class="breadcrumb-item"><a href="javascript:void(0);">Sales</a></li>
-                                <li class="breadcrumb-item active" aria-current="page"><span>Manage Book Sales Records</span></li>
+                                <li class="breadcrumb-item active" aria-current="page"><span>Accounting</span></li>
                             </ol>
                         </nav>
                     </div>
@@ -71,13 +53,13 @@
                                 <table id="html5-extension" class="table table-hover non-hover" style="width:100%">
                                     <thead>
                                         <tr>
-                                            <th>Receipt Number</th>
+                                            <th>Receipt No</th>
                                             <th>Book ISBN</th>
                                             <th>Book Title</th>
                                             <th>Sell Price</th>
                                             <th>Copies Sold</th>
-                                            <th>Date Sold</th>
-                                            <th>Action</th>
+                                            <th>Total Amount</th>
+                                            <th>Date</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -91,25 +73,23 @@
                                             {
                                         ?>
                                             <tr>
-                                                <td><?php echo $sales->s_code;?></td>
+                                                <td>
+                                                    <a class="outline outline-badge-success" href="pages_admin_get_receipt.php?receipt=<?php echo $sales->s_code;?>">
+                                                        <?php echo $sales->s_code;?>
+                                                    </a>
+                                                </td>
                                                 <td><?php echo $sales->b_isbn;?></td>
                                                 <td><?php echo $sales->b_title;?></td>
                                                 <td>Ksh <?php echo $sales->s_amt;?></td>
                                                 <td><?php echo $sales->s_copies;?> Copies</td>
-                                                <td><?php echo date("d M Y g:i",strtotime($sales->created_at));?></td>
-                                                <td>
-                                                    <div class="btn-group">
-                                                        <button type="button" class="btn btn-dark btn-sm">Manage Sales</button>
-                                                        <button type="button" class="btn btn-dark btn-sm dropdown-toggle dropdown-toggle-split" id="dropdownMenuReference1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-reference="parent">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9"></polyline></svg>
-                                                        </button>
-                                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuReference1">
-                                                        <a class="text-warning dropdown-item" href="pages_admin_update_sales_record.php?update=<?php echo $sales->s_id;?> ">Update Book</a>
-                                                        <div class="dropdown-divider"></div>
-                                                        <a class="text-danger dropdown-item" href="pages_admin_manage_sales_record.php?delete=<?php echo $sales->s_id;?>">Delete Book</a>
-                                                        </div>
-                                                    </div>
+                                                <td> Ksh 
+                                                    <?php
+                                                        //compute price
+                                                        $total_amt = $sales->s_amt * $sales->s_copies;
+                                                        echo $total_amt;
+                                                    ?>
                                                 </td>
+                                                <td><?php echo date("d M Y",strtotime($sales->created_at));?></td>
                                             </tr>
                                         <?php }?>
                                     </tbody>
