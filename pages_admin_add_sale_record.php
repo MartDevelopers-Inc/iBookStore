@@ -20,12 +20,13 @@
                 $s_month = $_POST['s_month'];
                 $s_date = $_POST['s_date'];
                 $s_year = $_POST['s_year'];
+                $s_copies = $_POST['s_copies'];
                 
                 //Insert Captured information to a database table
-                $postQuery="INSERT INTO iBookStore_Sales (b_title, b_isbn, s_code, s_amt, b_id, s_month, s_date, s_year) VALUES (?,?,?,?,?,?,?,?)";
+                $postQuery="INSERT INTO iBookStore_Sales (s_copies, b_title, b_isbn, s_code, s_amt, b_id, s_month, s_date, s_year) VALUES (?,?,?,?,?,?,?,?,?)";
                 $postStmt = $mysqli->prepare($postQuery);
                 //bind paramaters
-                $rc=$postStmt->bind_param('ssssssss', $b_title, $b_isbn, $s_code, $s_amt, $b_id, $s_month, $s_date, $s_year);
+                $rc=$postStmt->bind_param('sssssssss', $s_copies, $b_title, $b_isbn, $s_code, $s_amt, $b_id, $s_month, $s_date, $s_year);
                 $postStmt->execute();
                 //declare a varible which will be passed to alert function
                 if($postStmt)
@@ -100,12 +101,15 @@
                             <div class="">
                                 <form method="post" enctype="multipart/form-data" >
                                     <div class="form-row mb-4">
-                                        <div class="form-group col-md-6">
+                                        <div class="form-group col-md-4">
                                             <label for="inputEmail4">Sale Code | Number</label>
                                             <input type="name" name="s_code" value="<?php echo $alpha;?>-<?php echo $beta;?>" class="form-control">
                                         </div>
-
-                                        <div class="form-group col-md-6">
+                                        <div class="form-group col-md-4">
+                                            <label for="inputEmail4">Copies Sold</label>
+                                            <input type="name" name="s_copies" id="copies" class="form-control">
+                                        </div>
+                                        <div class="form-group col-md-4">
                                             <label for="inputState">Book ISBN Number</label>
                                             <select name="b_isbn" id ="bookISBN" onChange="getBookDetails(this.value)" class="form-control  basic">
                                                 <option selected="selected">Select ISBN Number</option>
@@ -126,7 +130,7 @@
 
                                     <div class="form-row mb-4">
                                         <div class="form-group col-md-6">
-                                            <label for="inputEmail4">Book Price (Ksh)</label>
+                                            <label for="inputEmail4">Price Per Book (Ksh)</label>
                                             <input type="name" name="s_amt" readonly id="bookPrice" class="form-control">
                                         </div>
                                         <div class="form-group col-md-6" style="display:none">
