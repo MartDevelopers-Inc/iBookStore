@@ -102,15 +102,32 @@
                                 <form method="post" enctype="multipart/form-data" >
                                     <div class="form-row mb-4">
                                         <div class="form-group col-md-6">
-                                            <label for="inputEmail4">Book Title</label>
-                                            <input type="name" name="b_title" class="form-control">
+                                            <label for="inputEmail4">Sale Code</label>
+                                            <input type="name" name="s_code" class="form-control">
                                         </div>
                                         <div class="form-group col-md-6">
-                                            <label for="inputPassword4">Book ISBN Number</label>
-                                            <input type="text" name="b_isbn" value="<?php echo $alpha;?>-<?php echo $beta;?>" class="form-control">
+                                            <label for="inputEmail4">Book Price</label>
+                                            <input type="name" name="s_amt" class="form-control">
                                         </div>
-                                    </div>
+                                   </div>
                                     <div class="form-row mb-4">
+                                        <div class="form-group col-md-6">
+                                            <label for="inputState">Book ISBN Number</label>
+                                            <select name="staff_gender" class="form-control  basic">
+                                                <option selected="selected">Select ISBN Number</option>
+                                                <?php
+                                                    $ret="SELECT * FROM  iBookStore_books"; 
+                                                    $stmt= $mysqli->prepare($ret) ;
+                                                    $stmt->execute();
+                                                    $res=$stmt->get_result();
+                                                    $cnt=1;
+                                                    while($books=$res->fetch_object())
+                                                    {
+                                                ?>
+                                                    <option><?php echo $books->b_isbn;?></option>
+                                                <?php }?>
+                                            </select>
+                                        </div>
                                         <div class="form-group col-md-6">
                                             <label for="inputEmail4">Book Title</label>
                                             <input type="name" name="b_title" class="form-control">
