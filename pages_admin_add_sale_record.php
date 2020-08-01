@@ -22,6 +22,7 @@
                 $s_year = $_POST['s_year'];
                 $s_copies = $_POST['s_copies'];
                 
+                
                 //Insert Captured information to a database table
                 $postQuery="INSERT INTO iBookStore_Sales (s_copies, b_title, b_isbn, s_code, s_amt, b_id, s_month, s_date, s_year) VALUES (?,?,?,?,?,?,?,?,?)";
                 $postStmt = $mysqli->prepare($postQuery);
@@ -121,8 +122,10 @@
                                                     $cnt=1;
                                                     while($books=$res->fetch_object())
                                                     {
+                                                    
                                                 ?>
                                                     <option><?php echo $books->b_isbn;?></option>
+
                                                 <?php }?>
                                             </select>
                                         </div>                                        

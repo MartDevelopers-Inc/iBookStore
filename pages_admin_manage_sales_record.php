@@ -75,6 +75,7 @@
                                             <th>Book ISBN</th>
                                             <th>Book Title</th>
                                             <th>Sell Price</th>
+                                            <th>Copies Sold</th>
                                             <th>Date Sold</th>
                                             <th>Action</th>
                                         </tr>
@@ -94,6 +95,7 @@
                                                 <td><?php echo $sales->b_isbn;?></td>
                                                 <td><?php echo $sales->b_title;?></td>
                                                 <td>Ksh <?php echo $sales->s_amt;?></td>
+                                                <td><?php echo $sales->s_copies;?> Copies</td>
                                                 <td><?php echo date("d M Y g:i",strtotime($sales->created_at));?></td>
                                                 <td>
                                                     <div class="btn-group">
