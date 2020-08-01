@@ -64,8 +64,8 @@
                         <nav class="breadcrumb-one" aria-label="breadcrumb">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="pages_admin_dashboard.php">Dashboard</a></li>
-                                <li class="breadcrumb-item"><a href="pages_admin_add_book.php">Books Categories</a></li>
-                                <li class="breadcrumb-item active" aria-current="page"><span>Add Books</span></li>
+                                <li class="breadcrumb-item"><a href="pages_admin_add_sale_record.php">Sales</a></li>
+                                <li class="breadcrumb-item active" aria-current="page"><span>Add Sale Record</span></li>
                             </ol>
                         </nav>
                     </div>
@@ -100,6 +100,16 @@
                             </div>
                             <div class="">
                                 <form method="post" enctype="multipart/form-data" >
+                                    <div class="form-row mb-4">
+                                        <div class="form-group col-md-6">
+                                            <label for="inputEmail4">Book Title</label>
+                                            <input type="name" name="b_title" class="form-control">
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label for="inputPassword4">Book ISBN Number</label>
+                                            <input type="text" name="b_isbn" value="<?php echo $alpha;?>-<?php echo $beta;?>" class="form-control">
+                                        </div>
+                                    </div>
                                     <div class="form-row mb-4">
                                         <div class="form-group col-md-6">
                                             <label for="inputEmail4">Book Title</label>
