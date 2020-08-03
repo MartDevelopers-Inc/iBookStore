@@ -74,9 +74,11 @@
                                         ?>
                                             <tr>
                                                 <td>
-                                                    <a class="outline outline-badge-success" href="pages_admin_get_receipt.php?receipt=<?php echo $sales->s_code;?>">
-                                                        <?php echo $sales->s_code;?>
-                                                    </a>
+                                                    <span class="outline outline-badge-success">
+                                                        <a class="" href="pages_admin_get_receipt.php?receipt=<?php echo $sales->s_code;?>">
+                                                            <?php echo $sales->s_code;?>
+                                                        </a>
+                                                    </span>                                                    
                                                 </td>
                                                 <td><?php echo $sales->b_isbn;?></td>
                                                 <td><?php echo $sales->b_title;?></td>
