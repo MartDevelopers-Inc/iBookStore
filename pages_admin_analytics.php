@@ -5,6 +5,7 @@
     check_login();
 
     require_once('partials/_head.php');
+    require_once('partials/_analytics.php');
 ?>
 <link href="assets/css/dashboard/dash_2.css" rel="stylesheet" type="text/css" />
 <body>
@@ -62,7 +63,7 @@
                             <div class="widget-content">
                                 <div class="w-content">
                                     <div class="w-info">
-                                        <h6 class="value">45,141</h6>
+                                        <h6 class="value"><?php echo $staff;?></h6>
                                         <p class="">Staffs</p>
                                     </div>
                                     <div class="">
@@ -78,7 +79,7 @@
                             <div class="widget-content">
                                 <div class="w-content">
                                     <div class="w-info">
-                                        <h6 class="value">45,141</h6>
+                                        <h6 class="value"><?php echo $BookCategories;?></h6>
                                         <p class="">Book Categories</p>
                                     </div>
                                     <div class="">
@@ -94,7 +95,7 @@
                             <div class="widget-content">
                                 <div class="w-content">
                                     <div class="w-info">
-                                        <h6 class="value">45,141</h6>
+                                        <h6 class="value"><?php echo $Books;?></h6>
                                         <p class="">Total Books</p>
                                     </div>
                                     <div class="">
@@ -110,7 +111,7 @@
                             <div class="widget-content">
                                 <div class="w-content">
                                     <div class="w-info">
-                                        <h6 class="value">45,141</h6>
+                                        <h6 class="value"><?php echo $staffwithlogin;?> </h6>
                                         <p class="">Allowed Login Staff Accounts</p>
                                     </div>
                                     <div class="">
@@ -126,7 +127,7 @@
                             <div class="widget-content">
                                 <div class="w-content">
                                     <div class="w-info">
-                                        <h6 class="value">45,141</h6>
+                                        <h6 class="value"><?php echo $pendingResets;?></h6>
                                         <p class="">Password Resets</p>
                                     </div>
                                     <div class="">
@@ -143,8 +144,8 @@
                             <div class="widget-content">
                                 <div class="w-content">
                                     <div class="w-info">
-                                        <h6 class="value">Ksh </h6>
-                                        <p class="">Total Sales</p>
+                                        <h6 class="value"><?php echo $sales;?> </h6>
+                                        <p class="">Total Book Sales </p>
                                     </div>
                                     <div class="">
                                         <div class="w-icon">
