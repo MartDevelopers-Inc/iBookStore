@@ -90,13 +90,49 @@
                                             {
                                         ?>
                                             <tr>
-                                                <td><?php echo $resets->reset_code;?></td>
+                                                <td><span class="badge outline-badge-primary"><?php echo $resets->reset_code;?></span></td>
                                                 <td><?php echo $resets->reset_token;?></td>
-                                                <td><?php echo $resets->reset_status;?></td>
+                                                <td>
+                                                    <?php
+                                                        if($resets->reset_status == 'Pending')
+                                                        {
+                                                            echo "<span class ='badge outline-badge-danger'>$resets->reset_status</span>";
+                                                        }
+                                                        else
+                                                        {
+                                                            echo "<span class ='badge outline-badge-success'>$resets->reset_status</span>";
+                                                        }
+                                                    ?>
+                                                 </td>
                                                 <td><?php echo $resets->reset_email;?></td>
                                                 <td><?php echo date("d M Y - g:i", strtotime($resets->created_at));?></td>
                                                 <td>
-                                                    hell
+                                                    <?php
+                                                        if($resets->reset_status == 'Pending')
+                                                        {
+                                                            echo 
+                                                            "
+                                                                <a href='pages_admin_staff_password_resets.php?email=$resets->reset_email&id=$resets->reset_id&reset_status=Reset' class='badge outline-badge-danger bs-tooltip' data-toggle='tooltip' data-placement='top'>
+                                                                    Reset Password
+                                                                </a>
+                                                            ";
+                                                        }
+                                                        else
+                                                        {
+                                                            echo 
+                                                            "
+                                                                <a href='mailto:$resets->reset_email?subject=Password Reset&body=Hello $resets->reset_email, This is your new password $resets->reset_code kindly change it after logging in. Session Token $resets->reset_token'
+                                                                 class='badge outline-badge-success bs-tooltip' data-toggle='tooltip' data-placement='top'>
+                                                                     Send Mail
+                                                                </a>
+
+                                                                <a class='outline-badge-success'  data-toggle='tooltip' data-placement='top' href='pages_admin_password_resets.php?delete=$resets->reset_id'>
+                                                                    Delete
+                                                                </a>
+                                                            ";
+                                                        }
+                                                    ?>
+                                                    
                                                 </td>
                                             </tr>
                                         <?php }?>
