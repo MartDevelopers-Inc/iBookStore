@@ -87,30 +87,26 @@
                                         <thead>
                                             <tr>
                                                 <th><div class="th-content">ISBN Number</div></th>
-                                                <th><div class="th-content th-heading">Publisher</div></th>
-                                                <th><div class="th-content th-heading">Author</div></th>
+                                                <th><div class="th-content">Price Per Copy</div></th>
                                                 <th><div class="th-content">Title</div></th>
-                                                <th><div class="th-content">Amount Per Copy</div></th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <?php
                                                 //Get Top Selling Book
-                                                $ret="SELECT * FROM  iBookStore_Sales"; 
+                                                $ret="SELECT * FROM iBookStore_Sales GROUP BY b_id ORDER BY  COUNT(*) DESC"; 
                                                 $stmt= $mysqli->prepare($ret) ;
                                                 $stmt->execute();
                                                 $res=$stmt->get_result();
                                                 $cnt=1;
-                                                while($sales=$res->fetch_object())
+                                                while($books=$res->fetch_object())
                                                 {
 
                                             ?>
                                                 <tr>
-                                                    <td><div class="td-content product-name">Speakers</div></td>
-                                                    <td><div class="td-content"><span class="pricing">$84.00</span></div></td>
-                                                    <td><div class="td-content"><span class="discount-pricing">$10.00</span></div></td>
-                                                    <td><div class="td-content">240</div></td>
-                                                    <td><div class="td-content"><a href="javascript:void(0);" class="">Direct</a></div></td>
+                                                    <td><div class="td-content product-name"><?php echo $books->b_isbn;?></div></td>
+                                                    <td><div class="td-content product-name">Ksh <?php echo $books->s_amt;?></div></td>
+                                                    <td><div class="td-content"><span class="pricing"><?php echo $books->b_title;?></span></div></td>
                                                 </tr>
                                             <?php }?>
                                         </tbody>
