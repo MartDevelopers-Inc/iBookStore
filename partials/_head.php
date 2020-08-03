@@ -32,6 +32,7 @@
     <link rel="stylesheet" type="text/css" href="plugins/table/datatable/datatables.css">
     <link rel="stylesheet" type="text/css" href="plugins/table/datatable/dt-global_style.css">
     <link rel="stylesheet" type="text/css" href="plugins/table/datatable/custom_dt_multiple_tables.css">
+    <link href="plugins/apex/apexcharts.css" rel="stylesheet" type="text/css">
     <style>
         #formValidate .wizard > .content {min-height: 25em;}
         #example-vertical.wizard > .content {min-height: 24.5em;}

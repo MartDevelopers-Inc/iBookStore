@@ -19,14 +19,14 @@
           $updatestmt->execute();
           $deletestmt->close();	 
           $updatestmt->close();
-         if($deletestmt && $updatestmt)
-         {
-             $success = "Denied Login Permission" && header("refresh:1; url=pages_admin_login_permissions.php");
-         }
-         else
-         {
-             $err = "Try Again Later";
-         }
+            if($deletestmt && $updatestmt)
+            {
+                $success = "Denied Login Permission" && header("refresh:1; url=pages_admin_login_permissions.php");
+            }
+            else
+            {
+                $err = "Try Again Later";
+            }
       }
     require_once('partials/_head.php');
 ?>
