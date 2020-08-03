@@ -3,24 +3,7 @@
     include('config/config.php');
     include('config/checklogin.php');
     check_login();
-    //Delete staff
-    if(isset($_GET['delete']))
-    {
-          $id=intval($_GET['delete']);
-          $adn="DELETE FROM  iBookStore_HRM  WHERE  staff_id = ?";
-          $stmt= $mysqli->prepare($adn);
-          $stmt->bind_param('i',$id);
-          $stmt->execute();
-          $stmt->close();	 
-         if($stmt)
-         {
-             $success = "Deleted" && header("refresh:1; url=pages_admin_manage_staff.php");
-         }
-         else
-         {
-             $err = "Try Again Later";
-         }
-      }
+    
     require_once('partials/_head.php');
 ?>
 <body>
@@ -39,8 +22,8 @@
                         <nav class="breadcrumb-one" aria-label="breadcrumb">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="pages_admin_dashboard.php">Dashboard</a></li>
-                                <li class="breadcrumb-item"><a href="javascript:void(0);">HRM</a></li>
-                                <li class="breadcrumb-item active" aria-current="page"><span>Manage Staff</span></li>
+                                <li class="breadcrumb-item"><a href="javascript:void(0);">Advanced Reporting</a></li>
+                                <li class="breadcrumb-item active" aria-current="page"><span>Staffs </span></li>
                             </ol>
                         </nav>
                     </div>
@@ -71,14 +54,15 @@
                                 <table id="html5-extension" class="table table-hover non-hover" style="width:100%">
                                     <thead>
                                         <tr>
-                                            <th>Name</th>
                                             <th>Number</th>
+                                            <th>Name</th>
                                             <th>ID No</th>
                                             <th>DOB</th>
                                             <th>Email</th>
                                             <th>Phone</th>
                                             <th>Gender</th>
-                                            <th>Action</th>
+                                            <th>Allowed Login</th>
+                                            <th>Date Added</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -93,27 +77,43 @@
                                             {
                                         ?>
                                             <tr>
+                                                <td>
+                                                    <a href="pages_admin_view_staff.php?view=<?php echo $staff->staff_id;?>">
+                                                        <span class="badge outline-badge-success">
+                                                            <?php echo $staff->staff_number;?>
+                                                        </span>
+                                                    </a>
+                                                </td>
                                                 <td><?php echo $staff->staff_name;?></td>
-                                                <td><?php echo $staff->staff_number;?></td>
                                                 <td><?php echo $staff->staff_natid;?></td>
                                                 <td><?php echo $staff->staff_dob;?></td>
                                                 <td><?php echo $staff->staff_email;?></td>
                                                 <td><?php echo $staff->staff_phone;?></td>
                                                 <td><?php echo $staff->staff_gender;?></td>
                                                 <td>
-                                                    <div class="btn-group">
-                                                        <button type="button" class="btn btn-dark btn-sm">Manage</button>
-                                                        <button type="button" class="btn btn-dark btn-sm dropdown-toggle dropdown-toggle-split" id="dropdownMenuReference1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-reference="parent">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9"></polyline></svg>
-                                                        </button>
-                                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuReference1">
-                                                        <a class="text-success dropdown-item" href="pages_admin_view_staff.php?view=<?php echo $staff->staff_id;?>">View Staff</a>
-                                                        <a class="text-warning dropdown-item" href="pages_admin_update_staff.php?update=<?php echo $staff->staff_id;?> ">Update Staff</a>
-                                                        <div class="dropdown-divider"></div>
-                                                        <a class="text-danger dropdown-item" href="pages_admin_manage_staff.php?delete=<?php echo $staff->staff_id;?>">Delete Staff</a>
-                                                        </div>
-                                                    </div>
+                                                    <?php
+                                                        //Echo .success or .danger if user is allowed login
+                                                        if($staff->allow_login == '1')
+                                                        {
+                                                            echo 
+                                                            "
+                                                                <span class='badge outline-badge-success'>
+                                                                    Yes
+                                                                </span>
+                                                            ";
+                                                        }
+                                                        else
+                                                        {
+                                                            echo 
+                                                            "
+                                                                <span class='badge outline-badge-danger'>
+                                                                    No
+                                                                </span>
+                                                            ";
+                                                        }
+                                                    ?>
                                                 </td>
+                                                <td><?php echo date('d M Y', strtotime($staff->created_at));?></td>
                                             </tr>
                                         <?php }?>
                                     </tbody>
