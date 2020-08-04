@@ -9,7 +9,7 @@
     
     <!--  BEGIN NAVBAR  -->
     <?php 
-        require_once('partials/_nav.php');
+        require_once('partials/_staffNav.php');
         $receipt = $_GET['receipt'];
         $ret="SELECT * FROM  iBookStore_Sales WHERE s_code = '$receipt' "; 
         $stmt= $mysqli->prepare($ret) ;
@@ -34,8 +34,8 @@
                     <div class="page-header">
                         <nav class="breadcrumb-one" aria-label="breadcrumb">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="pages_admin_dashboard.php">Dashboard</a></li>
-                                <li class="breadcrumb-item"><a href="pages_admin_accounting.php">Accounting</a></li>
+                                <li class="breadcrumb-item"><a href="pages_staff_dashboard.php">Dashboard</a></li>
+                                <li class="breadcrumb-item"><a href="pages_staff_accounting.php">Accounting</a></li>
                                 <li class="breadcrumb-item active" aria-current="page"><span><?php echo $sales->s_code;?></span></li>
                             </ol>
                         </nav>
@@ -53,7 +53,7 @@
         <div class="search-overlay"></div>
 
         <!--  BEGIN SIDEBAR  -->
-        <?php require_once('partials/_sidenav.php');?>
+        <?php require_once('partials/_staffSideNav.php');?>
         <!--  END SIDEBAR  -->
 
         <!--  BEGIN CONTENT AREA  -->

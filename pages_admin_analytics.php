@@ -5,6 +5,7 @@
     check_login();
 
     require_once('partials/_head.php');
+    require_once('partials/_analytics.php');
 ?>
 <link href="assets/css/dashboard/dash_2.css" rel="stylesheet" type="text/css" />
 <body>
@@ -62,7 +63,7 @@
                             <div class="widget-content">
                                 <div class="w-content">
                                     <div class="w-info">
-                                        <h6 class="value">45,141</h6>
+                                        <h6 class="value"><?php echo $staff;?></h6>
                                         <p class="">Staffs</p>
                                     </div>
                                     <div class="">
@@ -78,7 +79,7 @@
                             <div class="widget-content">
                                 <div class="w-content">
                                     <div class="w-info">
-                                        <h6 class="value">45,141</h6>
+                                        <h6 class="value"><?php echo $BookCategories;?></h6>
                                         <p class="">Book Categories</p>
                                     </div>
                                     <div class="">
@@ -94,7 +95,7 @@
                             <div class="widget-content">
                                 <div class="w-content">
                                     <div class="w-info">
-                                        <h6 class="value">45,141</h6>
+                                        <h6 class="value"><?php echo $Books;?></h6>
                                         <p class="">Total Books</p>
                                     </div>
                                     <div class="">
@@ -110,7 +111,7 @@
                             <div class="widget-content">
                                 <div class="w-content">
                                     <div class="w-info">
-                                        <h6 class="value">45,141</h6>
+                                        <h6 class="value"><?php echo $staffwithlogin;?> </h6>
                                         <p class="">Allowed Login Staff Accounts</p>
                                     </div>
                                     <div class="">
@@ -126,7 +127,7 @@
                             <div class="widget-content">
                                 <div class="w-content">
                                     <div class="w-info">
-                                        <h6 class="value">45,141</h6>
+                                        <h6 class="value"><?php echo $pendingResets;?></h6>
                                         <p class="">Password Resets</p>
                                     </div>
                                     <div class="">
@@ -143,8 +144,8 @@
                             <div class="widget-content">
                                 <div class="w-content">
                                     <div class="w-info">
-                                        <h6 class="value">Ksh </h6>
-                                        <p class="">Total Sales</p>
+                                        <h6 class="value"><?php echo $sales;?> </h6>
+                                        <p class="">Total Book Sales </p>
                                     </div>
                                     <div class="">
                                         <div class="w-icon">
@@ -185,30 +186,36 @@
                         <div class="widget widget-activity-three">
 
                             <div class="widget-heading">
-                                <h5 class="">Notifications</h5>
+                                <h5 class="">Book Sale Logs</h5>
                             </div>
 
                             <div class="widget-content">
-
                                 <div class="mt-container mx-auto">
                                     <div class="timeline-line">
-                                        <div class="item-timeline timeline-new">
-                                            <div class="t-dot">
-                                                <div class="t-primary"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
-                                            </div>
-                                            <div class="t-content">
-                                                <div class="t-uppercontent">
-                                                    <h5>Logs</h5>
-                                                    <span class="">27 Feb, 2020</span>
+                                        <?php
+                                            $ret="SELECT * FROM  iBookStore_Sales"; 
+                                            $stmt= $mysqli->prepare($ret) ;
+                                            $stmt->execute();
+                                            $res=$stmt->get_result();
+                                            $cnt=1;
+                                            while($sales=$res->fetch_object())
+                                            {
+                                        ?>
+                                            <div class="item-timeline timeline-new">
+                                                <div class="t-dot">
+                                                    <div class="t-primary"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
                                                 </div>
-                                                <p><span>Updated</span> Server Logs</p>
-                                                <div class="tags">
-                                                    <div class="badge badge-primary">Logs</div>
-                                                    <div class="badge badge-success">CPanel</div>
-                                                    <div class="badge badge-warning">Update</div>
+                                                <div class="t-content">
+                                                    <div class="t-uppercontent">
+                                                        <h5><?php echo $sales->s_code;?></h5>
+                                                    </div>
+                                                    <p><span>Sold </span><?php echo $sales->b_title;?></p>
+                                                    <div class="tags">
+                                                        <div class="badge badge-success"><?php echo date('d, M Y - g:i');?></div>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        <?php }?>
                                     </div>                                    
                                 </div>
                             </div>

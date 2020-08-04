@@ -38,7 +38,7 @@
                 //declare a varible which will be passed to alert function
                 if($postStmt  && $logStmt)
                 {
-                 $success = "Book Sold" && header("refresh:1; url=pages_admin_add_sale_record.php");
+                 $success = "Book Sold" && header("refresh:1; url=pages_staff_add_sale_record.php");
                 }
                 else 
                 {
@@ -58,7 +58,7 @@
     <!--  END LOADER -->
 
     <!--  BEGIN NAVBAR  -->
-    <?php require_once('partials/_nav.php');?>
+    <?php require_once('partials/_staffNav.php');?>
     <!--  END NAVBAR  -->
 
     <!--  BEGIN NAVBAR  -->
@@ -70,8 +70,8 @@
                     <div class="page-header">
                         <nav class="breadcrumb-one" aria-label="breadcrumb">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="pages_admin_dashboard.php">Dashboard</a></li>
-                                <li class="breadcrumb-item"><a href="pages_admin_add_sale_record.php">Sales</a></li>
+                                <li class="breadcrumb-item"><a href="pages_staff_dashboard.php">Dashboard</a></li>
+                                <li class="breadcrumb-item"><a href="pages_staff_add_sale_record.php">Sales</a></li>
                                 <li class="breadcrumb-item active" aria-current="page"><span>Add Sale Record</span></li>
                             </ol>
                         </nav>
@@ -90,7 +90,7 @@
         <div class="search-overlay"></div>
 
         <!--  BEGIN SIDEBAR  -->
-        <?php require_once('partials/_sidenav.php');?>
+        <?php require_once('partials/_staffSideNav.php');?>
         <!--  END SIDEBAR  -->
         <!--  BEGIN CONTENT PART  -->
         <div id="content" class="main-content">
