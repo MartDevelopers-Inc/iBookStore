@@ -13,7 +13,7 @@
     <!--  END LOADER -->
 
     <!--  BEGIN NAVBAR  -->
-    <?php require_once('partials/_nav.php');?>
+    <?php require_once('partials/_staffNav.php');?>
     <!--  END NAVBAR  -->
 
     <!--  Bread Crump -->
@@ -46,7 +46,7 @@
         <div class="search-overlay"></div>
 
         <!--  BEGIN SIDEBAR  -->
-        <?php require_once('partials/_sidenav.php');?>
+        <?php require_once('partials/_staffSideNav.php');?>
         <!--  END SIDEBAR  -->
         
         <!--  BEGIN CONTENT AREA  -->
