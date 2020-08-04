@@ -21,17 +21,18 @@
                 $s_date = $_POST['s_date'];
                 $s_year = $_POST['s_year'];
                 $s_copies = $_POST['s_copies'];
+                $b_cat = $_POST['b_cat'];
                 
                 //Create a log 
                 $log_content = $_POST['log_content'];
                 
                 //Insert Captured information to a database table
-                $postQuery="INSERT INTO iBookStore_Sales (s_copies, b_title, b_isbn, s_code, s_amt, b_id, s_month, s_date, s_year) VALUES (?,?,?,?,?,?,?,?,?)";
+                $postQuery="INSERT INTO iBookStore_Sales (b_cat, s_copies, b_title, b_isbn, s_code, s_amt, b_id, s_month, s_date, s_year) VALUES (?,?,?,?,?,?,?,?,?,?)";
                 $logQry = "INSERT INTO iBookStore_logs (log_code, log_content) VALUE (?,?)";
                 $postStmt = $mysqli->prepare($postQuery);
                 $logStmt = $mysqli->prepare($logQry);
                 //bind paramaters
-                $rc=$postStmt->bind_param('sssssssss', $s_copies, $b_title, $b_isbn, $s_code, $s_amt, $b_id, $s_month, $s_date, $s_year);
+                $rc=$postStmt->bind_param('ssssssssss', $b_cat, $s_copies, $b_title, $b_isbn, $s_code, $s_amt, $b_id, $s_month, $s_date, $s_year);
                 $rc = $logStmt->bind_param('ss', $s_code, $log_content);
                 $postStmt->execute();
                 $logStmt->execute();
@@ -113,10 +114,6 @@
                                             <input type="name" name="s_code" value="<?php echo $alpha;?>-<?php echo $beta;?>" class="form-control">
                                         </div>
                                         <div class="form-group col-md-4">
-                                            <label for="inputEmail4">Copies Sold</label>
-                                            <input type="name" name="s_copies" id="copies" class="form-control">
-                                        </div>
-                                        <div class="form-group col-md-4">
                                             <label for="inputState">Book ISBN Number</label>
                                             <select name="b_isbn" id ="bookISBN" onChange="getBookDetails(this.value)" class="form-control  basic">
                                                 <option selected="selected">Select ISBN Number</option>
@@ -133,11 +130,15 @@
                                                     <option><?php echo $books->b_isbn;?></option>
                                                 <?php }?>
                                             </select>
-                                        </div>                                        
+                                        </div> 
+                                        <div class="form-group col-md-4">
+                                            <label for="inputEmail4">Copies Sold</label>
+                                            <input type="name" name="s_copies" id="copies" class="form-control">
+                                        </div>                                       
                                     </div>
 
                                     <div class="form-row mb-4">
-                                        <div class="form-group col-md-6">
+                                        <div class="form-group col-md-4">
                                             <label for="inputEmail4">Price Per Book (Ksh)</label>
                                             <input type="text" name="s_amt" readonly id="bookPrice" class="form-control">
                                         </div>
@@ -149,9 +150,13 @@
                                             <label for="inputEmail4">Book ID</label>
                                             <input type="text" name="b_id" id="book_ID" class="form-control">
                                         </div>
-                                        <div class="form-group col-md-6">
+                                        <div class="form-group col-md-4">
                                             <label for="inputPassword4">Book Title</label>
                                             <input type="text" name="b_title" readonly id="bookTitle" class="form-control">
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            <label for="inputPassword4">Book Category</label>
+                                            <input type="text" name="b_cat" readonly id="bookCategory" class="form-control">
                                         </div>
                                     </div>
                                     <div class="form-row mb-4" style ="display:none" >

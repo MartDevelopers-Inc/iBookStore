@@ -98,7 +98,7 @@
                 $('#bookPrice').val(data);
                 }
             });
-
+            
             $.ajax({
 
                 type: "POST",
@@ -108,6 +108,17 @@
                 {
                 //alert(data);
                 $('#bookTitle').val(data);
+                }
+            });
+
+            $.ajax({
+                type: "POST",
+                url: "ajax.php",
+                data:'bookTitle='+val,
+                success: function(data)
+                {
+                //alert(data);
+                $('#bookCategory').val(data);
                 }
             });
 

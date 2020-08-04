@@ -47,3 +47,20 @@ if(!empty($_POST["bookPrice"]))
 }
 }
 
+
+
+if(!empty($_POST["bookTitle"])) 
+{
+    $id=$_POST['bookTitle'];
+    $stmt = $DB_con->prepare("SELECT * FROM  iBookStore_books WHERE b_isbn = :id");
+    $stmt->execute(array(':id' => $id));
+?>
+<?php
+    while($row=$stmt->fetch(PDO::FETCH_ASSOC))
+{
+?>
+<?php echo htmlentities($row['cat_name']); ?>
+<?php
+}
+}
+
