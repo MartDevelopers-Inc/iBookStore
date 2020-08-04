@@ -22,15 +22,21 @@
                 $s_year = $_POST['s_year'];
                 $s_copies = $_POST['s_copies'];
                 
+                //Create a log 
+                $log_content = $_POST['log_content'];
                 
                 //Insert Captured information to a database table
                 $postQuery="INSERT INTO iBookStore_Sales (s_copies, b_title, b_isbn, s_code, s_amt, b_id, s_month, s_date, s_year) VALUES (?,?,?,?,?,?,?,?,?)";
+                $logQry = "INSERT INTO iBookStore_logs (log_code, log_content) VALUE (?,?)";
                 $postStmt = $mysqli->prepare($postQuery);
+                $logStmt = $mysqli->prepare($logQry);
                 //bind paramaters
                 $rc=$postStmt->bind_param('sssssssss', $s_copies, $b_title, $b_isbn, $s_code, $s_amt, $b_id, $s_month, $s_date, $s_year);
+                $rc = $logStmt->bind_param('ss', $s_code, $log_content);
                 $postStmt->execute();
+                $logStmt->execute();
                 //declare a varible which will be passed to alert function
-                if($postStmt)
+                if($postStmt  && $logStmt)
                 {
                  $success = "Book Sold" && header("refresh:1; url=pages_admin_add_sale_record.php");
                 }
@@ -125,7 +131,6 @@
                                                     
                                                 ?>
                                                     <option><?php echo $books->b_isbn;?></option>
-
                                                 <?php }?>
                                             </select>
                                         </div>                                        
@@ -134,11 +139,15 @@
                                     <div class="form-row mb-4">
                                         <div class="form-group col-md-6">
                                             <label for="inputEmail4">Price Per Book (Ksh)</label>
-                                            <input type="name" name="s_amt" readonly id="bookPrice" class="form-control">
+                                            <input type="text" name="s_amt" readonly id="bookPrice" class="form-control">
+                                        </div>
+                                        <div class="form-group col-md-6" style="display:none">
+                                            <label for="inputEmail4">Log Messange</label>
+                                            <input type="text" name="log_content" readonly value="Book Sold" class="form-control">
                                         </div>
                                         <div class="form-group col-md-6" style="display:none">
                                             <label for="inputEmail4">Book ID</label>
-                                            <input type="name" name="b_id" id="book_ID" class="form-control">
+                                            <input type="text" name="b_id" id="book_ID" class="form-control">
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label for="inputPassword4">Book Title</label>
@@ -148,7 +157,7 @@
                                     <div class="form-row mb-4" style ="display:none" >
                                         <div class="form-group col-md-4">
                                             <label for="inputEmail4">Date</label>
-                                            <input type="name" readonly name="s_date" value="<?php echo date('d');?>" class="form-control">
+                                            <input type="text" readonly name="s_date" value="<?php echo date('d');?>" class="form-control">
                                         </div>
                                         <div class="form-group col-md-4">
                                             <label for="inputPassword4">Month</label>
