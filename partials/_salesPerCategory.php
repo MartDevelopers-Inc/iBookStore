@@ -11,7 +11,7 @@
 
     */
     //1. Get all kindergern books
-    $query ="SELECT COUNT(*) FROM `iBookStore_Sales` WHERE b_cat = 'Kindergarten Books' ";
+    $query ="SELECT SUM(s_copies) FROM `iBookStore_Sales` WHERE b_cat = 'Kindergarten Books' ";
     $stmt = $mysqli->prepare($query);
     $stmt ->execute();
     $stmt->bind_result($Kindergarten);
@@ -19,7 +19,7 @@
     $stmt->close();
 
     //2. Get all Primary school books
-    $query ="SELECT COUNT(*) FROM `iBookStore_Sales` WHERE b_cat = 'Primary School Books' ";
+    $query ="SELECT SUM(s_copies) FROM `iBookStore_Sales` WHERE b_cat = 'Primary School Books' ";
     $stmt = $mysqli->prepare($query);
     $stmt ->execute();
     $stmt->bind_result($Primary_School);
@@ -27,7 +27,7 @@
     $stmt->close();
 
     //3.  Get all secondary school books
-    $query ="SELECT COUNT(*) FROM `iBookStore_Sales` WHERE b_cat = 'Secondary School Books' ";
+    $query ="SELECT SUM(s_copies) FROM `iBookStore_Sales` WHERE b_cat = 'Secondary School Books' ";
     $stmt = $mysqli->prepare($query);
     $stmt ->execute();
     $stmt->bind_result($Secondary_School);
@@ -35,7 +35,7 @@
     $stmt->close();
 
     //4.  Get all tertiary books
-    $query ="SELECT COUNT(*) FROM `iBookStore_Sales` WHERE b_cat = 'Tertiary Books' ";
+    $query ="SELECT SUM(s_copies) FROM `iBookStore_Sales` WHERE b_cat = 'Tertiary Books' ";
     $stmt = $mysqli->prepare($query);
     $stmt ->execute();
     $stmt->bind_result($Tertiary);
@@ -43,7 +43,7 @@
     $stmt->close();
 
     //5.  Get all Novels books
-    $query ="SELECT COUNT(*) FROM `iBookStore_Sales` WHERE b_cat = 'Novels' ";
+    $query ="SELECT SUM(s_copies) FROM `iBookStore_Sales` WHERE b_cat = 'Novels' ";
     $stmt = $mysqli->prepare($query);
     $stmt ->execute();
     $stmt->bind_result($Novels);
@@ -51,21 +51,20 @@
     $stmt->close();
 
     //6.  Get all Magazines
-    $query ="SELECT COUNT(*) FROM `iBookStore_Sales` WHERE b_cat = 'Magazines' ";
+    $query ="SELECT SUM(s_copies) FROM `iBookStore_Sales` WHERE b_cat = 'Magazines' ";
     $stmt = $mysqli->prepare($query);
     $stmt ->execute();
     $stmt->bind_result($Magazines);
     $stmt->fetch();
     $stmt->close();
 
-     //7.  Get all Others
-     $query ="SELECT COUNT(*) FROM `iBookStore_Sales` WHERE b_cat = 'Others' ";
-     $stmt = $mysqli->prepare($query);
-     $stmt ->execute();
-     $stmt->bind_result($Others);
-     $stmt->fetch();
-     $stmt->close();
-
+    //7.  Get all Others
+    $query ="SELECT SUM(s_copies) FROM `iBookStore_Sales` WHERE b_cat = 'Others' ";
+    $stmt = $mysqli->prepare($query);
+    $stmt ->execute();
+    $stmt->bind_result($Others);
+    $stmt->fetch();
+    $stmt->close();
 ?>
 <script>
    try {
@@ -117,7 +116,7 @@
             },
             series: [{
                 name: 'Sales',
-                data: [58, 44, 55, 57, 56, 61, 58]
+                data: [<?php echo $Kindergarten;?>, <?php echo $Primary_School;?>, <?php echo $Secondary_School;?>, <?php echo $Tertiary;?>, <?php echo $Novels;?>, <?php echo $Magazines;?>, <?php echo $Others;?>]
             }            
             ],
             xaxis: {
