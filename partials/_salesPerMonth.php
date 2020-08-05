@@ -1,15 +1,5 @@
 <?php
-    /*
-        Logic
-        1. Get all kindergern books sold in jan
-        2. Get all Primary school books
-        3. Get all secondary school books
-        4. Get all tertiary books
-        5. Get all magazines
-        6. Get all Novels
-        7. Get others
-
-    */
+   
     //1. Get all kindergern books sold in january
     $query ="SELECT SUM(s_copies) FROM `iBookStore_Sales` WHERE b_cat = 'Kindergarten Books' AND s_month = 'Jan'  ";
     $stmt = $mysqli->prepare($query);
