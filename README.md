@@ -25,10 +25,13 @@ iBookStore is a lite web based bookshops information management system.
     * Number: `staff@ibookstore.org`
     * Password: `staff`
 
-## Contributors
-<a href="https://github.com/MartDevelopers-Inc/iBookStore/graphs/contributors">
-  <img src="https://contributors-img.web.app/image?repo=MartDevelopers-Inc/iBookStore" />
-</a>
+
+## Glance Of iBookStore 😉
+
+<p align="center"><img src="https://github.com/MartDevelopers-Inc/iBookStore/blob/master/assets/Shots/1.png"></p>
+<p align="center"><img src="https://github.com/MartDevelopers-Inc/iBookStore/blob/master/assets/Shots/2.png"></p>
+<p align="center"><img src="https://github.com/MartDevelopers-Inc/iBookStore/blob/master/assets/Shots/3.png"></p>
+
 
 ## License
 
