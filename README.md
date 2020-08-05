@@ -1,4 +1,5 @@
 <p align="center">
+  <img src="https://github.com/MartDevelopers-Inc/iBookStore/blob/master/assets/img/gitLogo.png">
 </p>
 
 ## About iBookStore
