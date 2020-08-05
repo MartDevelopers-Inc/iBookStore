@@ -1,7 +1,7 @@
 <?php
     /*
         Logic
-        1. Get all kindergern books
+        1. Get all kindergern books sold in jan
         2. Get all Primary school books
         3. Get all secondary school books
         4. Get all tertiary books
@@ -10,13 +10,104 @@
         7. Get others
 
     */
-    //1. Get all kindergern books
-    $query ="SELECT SUM(s_copies) FROM `iBookStore_Sales` WHERE b_cat = 'Kindergarten Books' ";
+    //1. Get all kindergern books sold in january
+    $query ="SELECT SUM(s_copies) FROM `iBookStore_Sales` WHERE b_cat = 'Kindergarten Books' AND s_month = 'Jan'  ";
     $stmt = $mysqli->prepare($query);
     $stmt ->execute();
-    $stmt->bind_result($Kindergarten);
+    $stmt->bind_result($Kindergarten_jan);
     $stmt->fetch();
     $stmt->close();
+
+    //1. Get all kindergern books sold in Feb
+    $query ="SELECT SUM(s_copies) FROM `iBookStore_Sales` WHERE b_cat = 'Kindergarten Books' AND s_month = 'Feb'  ";
+    $stmt = $mysqli->prepare($query);
+    $stmt ->execute();
+    $stmt->bind_result($Kindergarten_feb);
+    $stmt->fetch();
+    $stmt->close();
+
+    //1. Get all kindergern books sold in March
+    $query ="SELECT SUM(s_copies) FROM `iBookStore_Sales` WHERE b_cat = 'Kindergarten Books' AND s_month = 'Mar'  ";
+    $stmt = $mysqli->prepare($query);
+    $stmt ->execute();
+    $stmt->bind_result($Kindergarten_mar);
+    $stmt->fetch();
+    $stmt->close();
+
+    //1. Get all kindergern books sold in April
+    $query ="SELECT SUM(s_copies) FROM `iBookStore_Sales` WHERE b_cat = 'Kindergarten Books' AND s_month = 'Apr'  ";
+    $stmt = $mysqli->prepare($query);
+    $stmt ->execute();
+    $stmt->bind_result($Kindergarten_apr);
+    $stmt->fetch();
+    $stmt->close();
+
+    //1. Get all kindergern books sold in May
+    $query ="SELECT SUM(s_copies) FROM `iBookStore_Sales` WHERE b_cat = 'Kindergarten Books' AND s_month = 'May'  ";
+    $stmt = $mysqli->prepare($query);
+    $stmt ->execute();
+    $stmt->bind_result($Kindergarten_may);
+    $stmt->fetch();
+    $stmt->close();
+
+    //1. Get all kindergern books sold in JUn
+    $query ="SELECT SUM(s_copies) FROM `iBookStore_Sales` WHERE b_cat = 'Kindergarten Books' AND s_month = 'Jun'  ";
+    $stmt = $mysqli->prepare($query);
+    $stmt ->execute();
+    $stmt->bind_result($Kindergarten_jun);
+    $stmt->fetch();
+    $stmt->close();
+
+    //1. Get all kindergern books sold in July
+    $query ="SELECT SUM(s_copies) FROM `iBookStore_Sales` WHERE b_cat = 'Kindergarten Books' AND s_month = 'Jul'  ";
+    $stmt = $mysqli->prepare($query);
+    $stmt ->execute();
+    $stmt->bind_result($Kindergarten_jul);
+    $stmt->fetch();
+    $stmt->close();
+
+    //1. Get all kindergern books sold in Aug
+    $query ="SELECT SUM(s_copies) FROM `iBookStore_Sales` WHERE b_cat = 'Kindergarten Books' AND s_month = 'Aug'  ";
+    $stmt = $mysqli->prepare($query);
+    $stmt ->execute();
+    $stmt->bind_result($Kindergarten_aug);
+    $stmt->fetch();
+    $stmt->close();
+
+    //1. Get all kindergern books sold in Aug
+    $query ="SELECT SUM(s_copies) FROM `iBookStore_Sales` WHERE b_cat = 'Kindergarten Books' AND s_month = 'Sep'  ";
+    $stmt = $mysqli->prepare($query);
+    $stmt ->execute();
+    $stmt->bind_result($Kindergarten_sep);
+    $stmt->fetch();
+    $stmt->close();
+
+    //1. Get all kindergern books sold in Oct
+    $query ="SELECT SUM(s_copies) FROM `iBookStore_Sales` WHERE b_cat = 'Kindergarten Books' AND s_month = 'Oct'  ";
+    $stmt = $mysqli->prepare($query);
+    $stmt ->execute();
+    $stmt->bind_result($Kindergarten_oct);
+    $stmt->fetch();
+    $stmt->close();
+
+    //1. Get all kindergern books sold in Nov
+    $query ="SELECT SUM(s_copies) FROM `iBookStore_Sales` WHERE b_cat = 'Kindergarten Books' AND s_month = 'Nov'  ";
+    $stmt = $mysqli->prepare($query);
+    $stmt ->execute();
+    $stmt->bind_result($Kindergarten_nov);
+    $stmt->fetch();
+    $stmt->close();
+
+    //1. Get all kindergern books sold in Dec
+    $query ="SELECT SUM(s_copies) FROM `iBookStore_Sales` WHERE b_cat = 'Kindergarten Books' AND s_month = 'Dec'  ";
+    $stmt = $mysqli->prepare($query);
+    $stmt ->execute();
+    $stmt->bind_result($Kindergarten_dec);
+    $stmt->fetch();
+    $stmt->close();
+
+
+    
 
     //2. Get all Primary school books
     $query ="SELECT SUM(s_copies) FROM `iBookStore_Sales` WHERE b_cat = 'Primary School Books' ";
@@ -175,7 +266,7 @@
   },
   series: [{
       name: 'Kindergarten',
-      data: [1680, 16800, 15500, 17800, 15500, 17000, 19000, 16000, 15000, 1000, 14000, 17000]
+      data: [<?php echo $Kindergarten_jan;?>, <?php echo $Kindergarten_feb;?>,  <?php echo $Kindergarten_mar;?>, <?php echo $Kindergarten_apr;?>, <?php echo $Kindergarten_apr;?>, <?php echo $Kindergarten_may;?>, <?php echo $Kindergarten_jun;?>, <?php echo $Kindergarten_jul;?>, <?php echo $Kindergarten_aug;?>, <?php echo $Kindergarten_sep;?>, <?php echo $Kindergarten_oct;?>, <?php echo $Kindergarten_nov;?>, <?php echo $Kindergarten_dec;?>]
   }, {
       name: 'Primary School',
       data: [16500, 17500, 16200, 17300, 16000, 19500, 16000, 1700, 16000, 19000, 18000, 19000]
