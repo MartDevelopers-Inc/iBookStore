@@ -32,7 +32,7 @@
                 <div class="form-container">
                     <div class="form-content">
                         <h1 class="">iBookStore</h1>
-                        <p class="">Powerful Book Store Information Management System.</p>
+                        <p class="">LightWeight  Book Store Information Management System.</p>
                         <form method="POST" class="text-left">
                             <div class="form">
 

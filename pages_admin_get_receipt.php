@@ -19,7 +19,7 @@
         while($sales=$res->fetch_object())
         {
             $total_amt = $sales->s_amt * $sales->s_copies;
-            $tax = 0.17 *$total_amt;
+            $tax = 0.14 *$total_amt;
             $taxable = $total_amt - $tax;
 
     ?>
@@ -198,7 +198,7 @@
                                                                     <h4 class="">Grand Total : </h4>
                                                                 </div>
                                                                 <div class="col-sm-4 col-5 grand-total-amount">
-                                                                    <h4 class="">Ksh <?php echo $total_amt;?></h4>
+                                                                    <h4 class="">Ksh <?php echo $taxable;?></h4>
                                                                 </div>
                                                             </div>
                                                         </div>

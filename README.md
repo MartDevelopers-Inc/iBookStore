@@ -1,4 +1,5 @@
 <p align="center">
+  <img src="https://github.com/MartDevelopers-Inc/iBookStore/blob/master/assets/img/gitLogo.png">
 </p>
 
 ## About iBookStore
@@ -15,10 +16,22 @@ iBookStore is a lite web based bookshops information management system.
 
 5. And Many More
 ```
-## Contributors
-<a href="https://github.com/MartDevelopers-Inc/iBookStore/graphs/contributors">
-  <img src="https://contributors-img.web.app/image?repo=MartDevelopers-Inc/iBookStore" />
-</a>
+## Credentials
+* Admin:
+    * Email: `admin@ibookstore.org`
+    * Password: `admin`
+    
+ * Staff :
+    * Number: `staff@ibookstore.org`
+    * Password: `staff`
+
+
+## Glance Of iBookStore 😉
+
+<p align="center"><img src="https://github.com/MartDevelopers-Inc/iBookStore/blob/master/assets/Shots/1.png"></p>
+<p align="center"><img src="https://github.com/MartDevelopers-Inc/iBookStore/blob/master/assets/Shots/2.png"></p>
+<p align="center"><img src="https://github.com/MartDevelopers-Inc/iBookStore/blob/master/assets/Shots/3.png"></p>
+
 
 ## License
 

@@ -60,14 +60,14 @@
                             <div class="widget-heading">
                                 <h5 class=""><?php echo date ('Y');?> Sales </h5>
                                 <ul class="tabs tab-pills">
-                                    <li><a href="javascript:void(0);" id="tb_1" class="tabmenu">Monthly</a></li>
+                                    <li><a href="javascript:void(0);" id="tb_1" class="tabmenu"><?php echo date('d - M - Y ');?></a></li>
                                 </ul>
                             </div>
 
                             <div class="widget-content">
                                 <div class="tabs tab-content">
                                     <div id="content_1" class="tabcontent"> 
-                                        <div id="revenueMonthly"></div>
+                                        <div id="salesPerMonth"></div>
                                     </div>
                                 </div>
                             </div>
@@ -127,5 +127,5 @@
     <?php require_once('partials/_scripts.php');?>
 
 </body>
-
+<?php require_once('partials/_salesPerMonth.php'); ?>
 </html>

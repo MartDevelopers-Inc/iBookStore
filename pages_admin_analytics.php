@@ -8,6 +8,7 @@
     require_once('partials/_analytics.php');
 ?>
 <link href="assets/css/dashboard/dash_2.css" rel="stylesheet" type="text/css" />
+
 <body>
     <!-- BEGIN LOADER -->
     <div id="load_screen"> <div class="loader"> <div class="loader-content">
@@ -177,7 +178,7 @@
                             </div>
 
                             <div class="widget-content">
-                                <div id="uniqueVisits"></div>
+                                <div id="salesPerBookCategory"></div>
                             </div>
                         </div>
                     </div>
@@ -229,4 +230,5 @@
     </div>
     <?php require_once('partials/_scripts.php');?>
 </body>
+<?php require_once('partials/_salesPerCategory.php');?>
 </html>
