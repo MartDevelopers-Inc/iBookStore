@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://github.com/MartDevelopers-Inc/iBookStore/blob/master/assets/img/gitLogo.png">
+  <img src="https://github.com/MartDevelopers-Inc/iBookStore/blob/master/assets/img/logo.svg">
 </p>
 
 ## About iBookStore
