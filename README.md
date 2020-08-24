@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://github.com/MartDevelopers-Inc/iBookStore/blob/master/assets/img/logo.svg">
+  <img src="https://github.com/MartDevelopers-Inc/iBookStore/blob/master/assets/img/logo.svg" width="50">
 </p>
 
 ## About iBookStore
@@ -31,8 +31,8 @@ iBookStore is a lite web based bookshops information management system.
 <p align="center"><img src="https://github.com/MartDevelopers-Inc/iBookStore/blob/master/assets/Shots/1.png"></p>
 <p align="center"><img src="https://github.com/MartDevelopers-Inc/iBookStore/blob/master/assets/Shots/2.png"></p>
 <p align="center"><img src="https://github.com/MartDevelopers-Inc/iBookStore/blob/master/assets/Shots/3.png"></p>
-<p align="center"><img src="https://github.com/MartDevelopers-Inc/iBookStore/blob/master/assets/Shots/4.png"></p>
-<p align="center"><img src="https://github.com/MartDevelopers-Inc/iBookStore/blob/master/assets/Shots/MockUp.jpg"></p>
+<p align="center"><img src="https://github.com/MartMbithi/iBookStore/blob/master/assets/Shots/4.png"></p>
+<p align="center"><img src="https://github.com/MartMbithi/iBookStore/blob/master/assets/Shots/MockUp.jpg"></p>
 
 ## License
 
